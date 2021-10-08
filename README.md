@@ -27,3 +27,37 @@ Also included:
 <p align="center">
 <img src="./wireframe.png" />
 </p>
+
+- Navigation links to my Github repo, LinkedIn, Portfolio
+- On the left, there will be selectable colors for each player
+- On the right, there will be different themes to select
+- In the upper right will be and option to remove sound
+- There will be a help icon in the lower right
+- There will be a reset game button and an option to add starting nodes
+
+## Technologies, Libraries, APIs
+
+This project will be implemented with the following technologies:
+- Canvas to render the game board
+- Webpack
+- Paper.js to work with vectors
+
+## Implementation Timeline
+- Friday Afternoon & Weekend: Setup project; getting webpack up and running, have canvas render to screen.  Create Board, Player, Node classes.  Render intial state of board in canvas.
+
+- Monday:  Dedicate this day to the underlying logic of Node Dominance.  
+
+- Tuesday: Get the game to correctly render to canvas.  Then focus on rendering lines and additional nodes.
+
+- Wednesday: Finish implementing controls, and focus on styling and ensuring all links work.
+
+- Thursday Morning: Deploy game and rewrite proposal as production.
+
+
+## Bonus feature
+- Add a number to each node representing the number available branches from node
+- Add additional randomly populated nodes
+- Add motion effects to line while drawing
+- Highlight available moves
+- Highlight legal moves from a specific node
+- Explore variations and multiplayer from separate computers.

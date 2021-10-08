@@ -1,0 +1,33 @@
+{
+  "name": "nodedominance",
+  "version": "1.0.0",
+  "description": "Node Dominance is an interactive game project.  It is based off the game Sprouts created by John Horton Conway and Micheal S. Paterson in the 1960s. The original game is played with paper and pencil. When you open the app you will have a new game generated with a default of two nodes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/87danielbradley/NodeDominance.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/87danielbradley/NodeDominance/issues"
+  },
+  "homepage": "https://github.com/87danielbradley/NodeDominance#readme",
+  "dependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "babel-loader": "^8.2.2",
+    "core-js": "^3.18.2",
+    "css-loader": "^6.3.0",
+    "mini-css-extract-plugin": "^2.4.2",
+    "regenerator-runtime": "^0.13.9",
+    "sass": "^1.42.1",
+    "sass-loader": "^12.1.0",
+    "webpack": "^5.58.1",
+    "webpack-cli": "^4.9.0"
+  }
+}

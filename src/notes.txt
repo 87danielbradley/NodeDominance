@@ -1,0 +1,25 @@
+// intersection coordinates between two paths
+
+import { Path } from "paper/dist/paper-core"
+
+// [0] is the index off the intersections.  [0] is the first
+let intersections = path1.getIntersections(path2)
+    console.log(intersections[0]["_point"]['x'])
+    console.log(intersections[0]["_point"]['y'])
+
+
+    path.smooth()
+    path.simplify() reduces the nodes and memory usages
+        tolerance: maximum error, default is 2.5
+        I will set to 1
+
+
+getNearestPoint(point)
+    will find nearest 'point' on path
+    will use to place next node
+    
+
+paper.project.view.onMouseDown = function (event) {
+	console.log('You dragged the mouse!');
+}
+I got this to finally recognize the click

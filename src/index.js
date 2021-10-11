@@ -1,11 +1,11 @@
-import Node from "./scripts/node.js";
-import User from "./scripts/user.js";
-import Edge from "./scripts/edge.js";
+// import Node from "./scripts/node.js";
+// import User from "./scripts/user.js";
+// import Edge from "./scripts/edge.js";
 import Game from "./scripts/game.js";
 import GameView from "./scripts/game_view.js"
-import MovingObject from "./scripts/moving_object.js";
-import * as paper from "./scripts/paper.js";
-import { Path, Point, Tool } from "paper/dist/paper-core";
+
+import * as paper from "./scripts/paper";
+// import { Path, Point, Tool } from "paper/dist/paper-core";
 
 paper.install(window)
 document.addEventListener("DOMContentLoaded", () => {

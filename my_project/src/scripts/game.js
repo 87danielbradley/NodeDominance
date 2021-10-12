@@ -46,8 +46,8 @@ class Game{
             let color2 = node.object.fillColor.gradient.stops[1];
             let color3 = node.object.fillColor.gradient.stops[2];
             // console.log('working')
-            color1.offset = Math.sin(event.time*1)*0.1 + 0.1;
-            color2.offset = Math.sin(event.time*3)*0.1 + 0.7;
+            color1.offset = Math.cos(event.time*3)*0.1 + 0.1;
+            color2.offset = Math.cos(event.time*3)*0.1 + 0.75;
             // color3.offset = Math.sin(event.time*5)*0.1 + 0.6;
         })}
     }

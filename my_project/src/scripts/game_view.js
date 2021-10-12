@@ -7,22 +7,22 @@ class GameView{
     start() {
         // debugger
        
-        console.log('in game_view start')
-        let tool = new Tool();
-		let path;
+        // console.log('in game_view start')
+        // let tempTool = new Tool();
+		// let tempPath;
 
-		// Define a mousedown and mousedrag handler
-		tool.onMouseDown = function(event) {
-			path = new Path();
-			path.strokeColor = 'black';
-			path.add(event.point);
-            path.smooth();
-		}
+		// // Define a mousedown and mousedrag handler
+		// tempTool.onMouseDown = function(event) {
+		// 	tempPath = new Path();
+		// 	tempPath.strokeColor = 'black';
+		// 	tempPath.add(event.point);
+        //     tempPath.smooth();
+		// }
 
-		tool.onMouseDrag = function(event) {
-			path.add(event.point);
-            path.smooth();
-		}
+		// tempTool.onMouseDrag = function(event) {
+		// 	tempPath.add(event.point);
+        //     tempPath.smooth();
+		// }
 
 // function paper.project.view.onMouseDrag(event) {
 // 	var path = new paper.Path();

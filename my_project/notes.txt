@@ -7,3 +7,10 @@ https://coolors.co/424874-dcd6f7-a6b1e1-cacfd6-d6e5e3-f4e4ba
 
 
 https://color.adobe.com/trends
+
+https://codepen.io/willismorse/pen/bYZrLR
+
+
+Extra functionality:
+colors 
+stars / event.delta.length/2-10

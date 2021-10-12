@@ -76,7 +76,16 @@ class Node{
             // edge.object.add(event.point);
             // edge.object.smooth 
             path = new Path();
-            path.stokeColor = 'green';
+            path.strokeColor = 'green';
+            path.strokeWidth = 10;
+            path.strokeCap = 'round';
+            path.strokeJoin = 'round';
+            path.shadowColor = new Color(0,0,0);
+            path.shadowBlue = 30;
+            path.shadowOffset = new Point(5,5);
+            path.opacity = 0.6;
+            path.blendMode = 'multiply';
+            // path.fillColor = 'green';
             path.add(that.object.getNearestPoint(event.point));
 
             var edge = new Edge(that, path); //
@@ -87,9 +96,36 @@ class Node{
             path.add(event.point);
         }
 
-        ////borrowed to understand nearest point
- 
+        /////////////may remove
+        let rectangle = new Rectangle(new Point(-1,-1), new Point(40,20));
+        let radius = new Size(10,10);
+        let recPath = new Path.Rectangle(rectangle, radius);
+        recPath.rotate(180)
+        recPath.fillColor = 'yellow';
+        recPath.bounds.bottomCenter;
+        
+        let test = new Group();
+        test.addChild(recPath);
+        test.transformContent = false;
+        
 
+
+        this.object.onMouseMove = function(event) {
+            // Get the nearest point from the mouse position
+            // to the star shaped path:
+            // debugger
+            var nearestPoint = that.object.getNearestPoint(event.point);
+
+            // Move the red circle to the nearest point:
+            // debugger
+            recPath.position = nearestPoint;
+            // recPath.applyMatrix = false;
+            
+            console.log('flag')
+            
+            test.rotate(nearestPoint.angleInDegrees, that.object.position)
+        }
+        //////////
 
     }
 

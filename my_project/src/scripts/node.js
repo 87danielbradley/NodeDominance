@@ -1,3 +1,5 @@
+import Edge from "./edge";
+
 console.log('inside node class')
 class Node{
     debugger
@@ -16,7 +18,7 @@ class Node{
 
         // let tool = new Tool();
         // console.log(tool)
-
+        this.activate();
        
 
         
@@ -31,7 +33,7 @@ class Node{
                 radial: true
             },
                 origin: this.object.position,
-                destination: this.object.bounds.leftCenter
+                destination: this.object.bounds.topLeft
             };
         
         
@@ -48,6 +50,45 @@ class Node{
         //     color2.offset = Math.sin(event.time*3)*0.1 + 0.7;
         //     // color3.offset = Math.sin(event.time*5)*0.1 + 0.6;
         // }
+        let that = this;
+        let tool = new Tool();
+        let path;
+        console.log(Path)
+        this.object.onMouseEnter = function(event) {
+            if (that.capacity()) event.stopPropagation();
+            console.log('hovering over node')
+            that.object.shadowColor = new Color(0.4, 0.4, 1);
+            that.object.shadowBlur = 50;
+            that.object.shadowOffset = new Point(5, 5);
+        }
+        this.object.onMouseLeave = function(event) {
+            console.log('hovering over node')
+            that.object.shadowColor = new Color(0, 0, 0);
+            that.object.shadowBlur = 0;
+            that.object.shadowOffset = new Point(0, 0);
+        }
+        this.object.onMouseDown = function(event) {
+            
+            console.log('clicked')
+            // if (that.capacity()) event.stopPropagation();
+            //console.log(that.object.getNearestPoint(event.point))
+            // edge.object.strokeColor = "green";
+            // edge.object.add(event.point);
+            // edge.object.smooth 
+            path = new Path();
+            path.stokeColor = 'green';
+            path.add(that.object.getNearestPoint(event.point));
+
+            var edge = new Edge(that, path); //
+        }
+        this.object.onMouseDrag = function(event) {
+            console.log('dragged')
+            // if (that.capacity()) event.stopPropagation();
+            path.add(event.point);
+        }
+
+        ////borrowed to understand nearest point
+ 
 
 
     }

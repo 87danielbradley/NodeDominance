@@ -3,7 +3,7 @@ import Game from "./scripts/game.js"
 import GameView from "./scripts/game_view.js"
 
 
-console.log(paper)
+// console.log(paper)
 paper.install(window)
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("paperCanvas")

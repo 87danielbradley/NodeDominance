@@ -1,13 +1,14 @@
 import Edge from "./edge";
 
-console.log('inside node class')
+// console.log('inside node class')
 class Node{
-    debugger
-    constructor(pos) {
+    // debugger
+    constructor(pos, game_instance) {
         paper.project.activeLayer.activate()
         this.object = new Path.Circle(new Point(pos),50);
         // this.object = paper.project.activeLayer.lastChild
         this.children = []
+        this.game = game_instance
 
         // this.paper = paper
         // this.tool = Tool
@@ -53,29 +54,30 @@ class Node{
         let that = this;
         let tool = new Tool();
         let path;
-        console.log(Path)
+        // console.log(Path)
         this.object.onMouseEnter = function(event) {
             if (that.capacity()) event.stopPropagation();
-            console.log('hovering over node')
+            // console.log('hovering over node')
             that.object.shadowColor = new Color(0.4, 0.4, 1);
             that.object.shadowBlur = 50;
             that.object.shadowOffset = new Point(5, 5);
         }
         this.object.onMouseLeave = function(event) {
-            console.log('hovering over node')
+            // console.log('hovering over node')
             that.object.shadowColor = new Color(0, 0, 0);
             that.object.shadowBlur = 0;
             that.object.shadowOffset = new Point(0, 0);
         }
         this.object.onMouseDown = function(event) {
             
-            console.log('clicked')
+            // console.log('clicked')
             // if (that.capacity()) event.stopPropagation();
             //console.log(that.object.getNearestPoint(event.point))
             // edge.object.strokeColor = "green";
             // edge.object.add(event.point);
             // edge.object.smooth 
             path = new Path();
+            
             path.strokeColor = 'green';
             path.strokeWidth = 10;
             path.strokeCap = 'round';
@@ -88,55 +90,96 @@ class Node{
             // path.fillColor = 'green';
             path.add(that.object.getNearestPoint(event.point));
 
-            var edge = new Edge(that, path); //
+            let edge = new Edge(that, path);
+            // console.log(that)
+            // console.log(edge)
+            that.addAChild(edge); //
+            
         }
         this.object.onMouseDrag = function(event) {
-            console.log('dragged')
+            // console.log('dragged');
             // if (that.capacity()) event.stopPropagation();
             path.add(event.point);
         }
+        this.object.onMouseUp = function(event) {
+            // console.log(that) // node class
+           
+            // that.game.add(that.children.slice(-1)[0]);
+            that.object.bringToFront();
+            that.game.legalMove(that)
+            if (!that.capacity()){
+                that.deactivate()
+            }
+            // console.log(paper.project.activeLayer.lastChild.lastSegment.getPoint())
+            // debugger
+
+        }
 
         /////////////may remove
-        let rectangle = new Rectangle(new Point(-1,-1), new Point(40,20));
-        let radius = new Size(10,10);
-        let recPath = new Path.Rectangle(rectangle, radius);
-        recPath.rotate(180)
-        recPath.fillColor = 'yellow';
-        recPath.bounds.bottomCenter;
+        // let rectangle = new Rectangle(new Point(-1,-1), new Point(40,20));
+        // let radius = new Size(10,10);
+        // let recPath = new Path.Rectangle(rectangle, radius);
+        // recPath.rotate(180)
+        // recPath.fillColor = 'yellow';
+        // recPath.bounds.bottomCenter;
         
-        let test = new Group();
-        test.addChild(recPath);
-        test.transformContent = false;
+        // let test = new Group();
+        // test.addChild(recPath);
+        // test.transformContent = false;
         
 
 
-        this.object.onMouseMove = function(event) {
-            // Get the nearest point from the mouse position
-            // to the star shaped path:
-            // debugger
-            var nearestPoint = that.object.getNearestPoint(event.point);
+        // this.object.onMouseMove = function(event) {
+        //     // Get the nearest point from the mouse position
+        //     // to the star shaped path:
+        //     // debugger
+        //     var nearestPoint = that.object.getNearestPoint(event.point);
 
-            // Move the red circle to the nearest point:
-            // debugger
-            recPath.position = nearestPoint;
-            // recPath.applyMatrix = false;
+        //     // Move the red circle to the nearest point:
+        //     // debugger
+        //     recPath.position = nearestPoint;
+        //     // recPath.applyMatrix = false;
             
-            console.log('flag')
+        //     // console.log('flag')
             
-            test.rotate(nearestPoint.angleInDegrees, that.object.position)
-        }
+        //     test.rotate(nearestPoint.angleInDegrees, that.object.position)
+        // }
         //////////
 
     }
 
     deactivate() {
+        let that = this;
+        let tool = new Tool();
+        let path;
+        // console.log(Path)
+        this.object.onMouseEnter = function(event) {
+            event.stopPropagation();
+        }
+        this.object.onMouseLeave = function(event) {
+            event.stopPropagation();
+        }
+        this.object.onMouseDown = function(event) {
+            event.stopPropagation();
+        }
+        this.object.onMouseDrag = function(event) {
+            event.stopPropagation();
+        }
+
+        this.object.onMouseMove = function(event) {
+            event.stopPropagation();
+        }
 
     }
 
-    addChild(object) {
+    addAChild(object) {
+        this.game.add(object);
         this.children.push(object);
-        if (this.capacity) {
+        if (!this.capacity()) {
             this.object.fillColor = "red"
+            
+        } else {
+            // console.log(this.capacity())
         }
     }
     

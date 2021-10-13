@@ -10,8 +10,8 @@ class Game{
         this.activate();
     }
     static BACKGROUND = "#CFCFEA";
-    static WIDTH = 1200;
-    static HEIGHT = 900;
+    static WIDTH = 2000;
+    static HEIGHT = 1500;
 
 
     start(numNodes) {
@@ -32,7 +32,9 @@ class Game{
                 this.edges.push(object);
             }
         } else {
-            throw new Error('Unknown Object');
+            console.log('this is not supposed to print!')
+            console.log(object)
+            // throw new Error('Unknown Object');
         }
     
     }
@@ -86,10 +88,48 @@ class Game{
         // console.log('68')
         // console.log(paper.project.activeLayer.lastChild)
         // console.log(curEdge)
-          
+        let that = this;
         // console.log(this.visibleObjects())
         console.log(objects.length)
         // debugger
+        if (objects.every(node => curEdge.getIntersections(node.object).length < 2)) {
+            console.log('working')
+        }
+
+        // for (let i =0; i < objects.length; i++) {
+        //     // let intersections = curEdge.getIntersections(objects[i]); // <===revert
+        //     let intersections = curEdge.getIntersections(objects[i].object)
+            //debugger on intersections formula
+            // if (intersections[0]["point"]['x']) {
+            // debugger
+            // console.log(intersections)
+            // if (intersections.length === 0) {
+            //     // console.log(i)
+            //     // objects[i].selection = true;
+            //     // objects[i].fillColor = 'red';
+            //     console.log(objects)
+            //     // debugger
+            //     if (!objects[i].object.closed) {
+            //         // debugger
+            //         let edge_idx = that.edges.indexOf(edge_instance);
+            //         if (edge_idx > -1) {
+            //         that.edges.splice(edge_idx,1);
+            //         }
+            //         let node_idx = objects[i].children.indexOf(edge_instance);
+            //         if (node_idx > -1) {
+            //             console.log(114)
+            //             console.log(objects[i])
+            //             objects[i].activate()//debugger
+            //             objects[i].splice(node_idx,1)
+            //         }
+
+            //         return true;
+            //     } 
+                
+            // }
+            //may need to compare edge vs node
+            //to do logic check on number of connections
+        // }
         for (let i =0; i < objects.length; i++) {
             // let intersections = curEdge.getIntersections(objects[i]); // <===revert
             let intersections = curEdge.getIntersections(objects[i].object)
@@ -105,6 +145,18 @@ class Game{
                 // debugger
                 if (!objects[i].object.closed) {
                     // debugger
+                    let edge_idx = that.edges.indexOf(edge_instance);
+                    if (edge_idx > -1) {
+                    that.edges.splice(edge_idx,1);
+                    }
+                    let node_idx = objects[i].children.indexOf(edge_instance);
+                    if (node_idx > -1) {
+                        console.log(114)
+                        console.log(objects[i])
+                        objects[i].activate()//debugger
+                        objects[i].splice(node_idx,1)
+                    }
+
                     return true;
                 } 
                 
@@ -127,7 +179,8 @@ class Game{
                 // debugger
                 if (objects[i].object.closed) {
                     if (!objects[i].children.includes(edge_instance)){
-                    objects[i].addAChild(edge_instance)
+                    objects[i].addAChild(edge_instance);
+                    objects[i].object.bringToFront();
                     }
                 } 
                 
@@ -135,7 +188,7 @@ class Game{
             //may need to compare edge vs node
             //to do logic check on number of connections
         }
-
+        this.buildNode(edge_instance)
         return false;
     }
 
@@ -151,6 +204,39 @@ class Game{
         if (!this.checkCollisions(node_instance.children.slice(-1)[0])) {
         console.log(node_instance.children)
         }// We spliced here to removed child incase of illegal move
+    }
+
+    buildNode(edge_instance) {
+        let that = this;
+        let dottedCircle = new Path.Circle({
+            center: view.center,
+            radius: 50,
+            strokeColor: 'black',
+            stokeWidth: 3
+        })
+        dottedCircle.dashArray = [15, 5];
+        dottedCircle.visible = false;
+    
+        edge_instance.startPos.onMouseMove = function(event) {
+            let pointOnPath = edge_instance.startPos.getNearestPoint(event.point);
+            dottedCircle.position = pointOnPath;
+            dottedCircle.visible = true;
+        }
+
+        edge_instance.startPos.onClick = function(event) {
+            that.add(edge_instance);
+           console.log(that);
+            that.add(new Node([event.point.x, event.point.y], that))
+            that.nodes.slice(-1)[0].addAChild(this);
+            that.nodes.slice(-1)[0].addAChild(this);
+            dottedCircle.visible = false;
+            edge_instance.startPos.onMouseMove = function(event) {
+            event.stopPropagation();
+            }
+        
+        }
+
+
     }
 
 

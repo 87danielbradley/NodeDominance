@@ -1,11 +1,31 @@
-// import * as paper from "./scripts/paper.js"
+
 import Game from "./scripts/game.js"
 import GameView from "./scripts/game_view.js"
 
-
-// console.log(paper)
 paper.install(window)
 document.addEventListener("DOMContentLoaded", () => {
+    
+
+
+    let body = document.getElementById('body');
+    let gameControls = document.getElementById('game-controls');
+    let newListItem = document.createElement('li');
+    debugger
+        newListItem.setAttribute('class','play')
+        newListItem.innerText('test')
+        gameControls.appendChild(newListItem)
+
+
+
+
+
+
+
+
+
+
+
+
     const canvas = document.getElementById("paperCanvas")
     canvas.height = Game.HEIGHT;
     canvas.width = Game.WIDTH;
@@ -15,22 +35,5 @@ document.addEventListener("DOMContentLoaded", () => {
     const game = new Game()
     const gameView = new GameView(paper, game);
     gameView.start();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })

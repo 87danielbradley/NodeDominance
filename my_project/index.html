@@ -7,35 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
     <script type="text/javascript" src="./src/scripts/paper.js"></script>
-    <!-- <script type="text/javascript">
-      window.onload = function () {
-          // Get a reference to the canvas object
-          var canvas = document.getElementById('myCanvas');
-          // Create an empty project and a view for the canvas:
-          paper.setup(canvas);
-          // Create a Paper.js Path to draw a line into it:
-          var path = new paper.Path();
-          // Give the stroke a color
-          path.strokeColor = 'black';
-          var start = new paper.Point(100, 100);
-          // Move to start and draw a line from there
-          path.moveTo(start);
-          // Note that the plus operator on Point objects does not work
-          // in JavaScript. Instead, we need to call the add() function:
-          path.lineTo(start.add([200, -50]));
-          // Draw the view now:
-          paper.view.draw();
-        }
-    
-    </script> -->
     <script src="./dist/main.js"></script>
     <title>Project Name</title>
 </head>
 
-<body>
-  <h1 id="main"> Message to be replaced </h1>
-  <!-- <canvas id="myCanvas"></canvas> -->
-  <canvas id="paperCanvas"></canvas>
+<body id='body'>
+  <h1 id="main"> Node Dominance </h1>
+  <span id='upper-section'>
+    <ul id="game-controls"></ul>
+  </span>
+  <span id='game-section'>
+    <ul id='color-controls'></ul>
+    <canvas id="paperCanvas"></canvas>
+    <ul id='color-scheme'></ul>
+  </span>
+  <span id="bottom-section">
+    <ul id="personal-links"></ul>
+    <ul id="help"></ul>
+  </span>
 </body>
 
 </html>

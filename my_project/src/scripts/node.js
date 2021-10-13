@@ -53,10 +53,12 @@ class Node{
         // }
         let that = this;
         let tool = new Tool();
+        tool.minDistance = 15;
+        tool.maxDistance = 40;
         let path;
         // console.log(Path)
         this.object.onMouseEnter = function(event) {
-            if (that.capacity()) event.stopPropagation();
+            // if (that.capacity()) event.stopPropagation();
             // console.log('hovering over node')
             that.object.shadowColor = new Color(0.4, 0.4, 1);
             that.object.shadowBlur = 50;
@@ -79,7 +81,8 @@ class Node{
             path = new Path();
             
             path.strokeColor = 'green';
-            path.strokeWidth = 10;
+            path.strokeWidth = 20;
+            // path.fillColor = "green";
             path.strokeCap = 'round';
             path.strokeJoin = 'round';
             path.shadowColor = new Color(0,0,0);
@@ -88,7 +91,8 @@ class Node{
             path.opacity = 0.6;
             path.blendMode = 'multiply';
             // path.fillColor = 'green';
-            path.add(that.object.getNearestPoint(event.point));
+            // path.add(that.object.getNearestPoint(event.point)); //snaps to edge, creates 2 contact points
+            path.add(event.point);
 
             let edge = new Edge(that, path);
             // console.log(that)
@@ -100,6 +104,7 @@ class Node{
             // console.log('dragged');
             // if (that.capacity()) event.stopPropagation();
             path.add(event.point);
+            
         }
         this.object.onMouseUp = function(event) {
             // console.log(that) // node class
@@ -176,6 +181,8 @@ class Node{
         this.game.add(object);
         this.children.push(object);
         if (!this.capacity()) {
+            console.log(179)
+            console.log(this)
             this.object.fillColor = "red"
             
         } else {

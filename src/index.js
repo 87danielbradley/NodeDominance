@@ -7,13 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
 
-    let body = document.getElementById('body');
-    let gameControls = document.getElementById('game-controls');
-    let newListItem = document.createElement('li');
-    debugger
-        newListItem.setAttribute('class','play')
-        newListItem.innerText('test')
-        gameControls.appendChild(newListItem)
+    // let body = document.getElementById('body');
+    // let gameControls = document.getElementById('game-controls');
+    // let newListItem = document.createElement('li');
+    // debugger
+    //     newListItem.setAttribute('class','play')
+    //     newListItem.innerText('test')
+    //     gameControls.appendChild(newListItem)
 
 
 

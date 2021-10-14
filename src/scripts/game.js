@@ -10,24 +10,14 @@ class Game{
         this.activate();
         
     }
-    static BACKGROUND = "#CFCFEA";
-    
     static WIDTH = window.innerWidth*4/5;
-    // static WIDTH = document.getElementById('paperCanvas').width
-    
     static HEIGHT = window.innerHeight*2/3;
-    // static HEIGHT = document.getElementById('paperCanvas').height
-    
     start(numNodes) {
-        
         for (let i = 0; i < numNodes; i++) {
             this.add(new Node(Utility.randomPosition((Game.WIDTH*0.75), (75 + Game.HEIGHT*0.75)), this)); //debugger
         }
     }
-
-    add(object) {
-        
-        
+    add(object) {   
         if (object instanceof Node) {
             this.nodes.push(object);
         } else if (object instanceof Edge) {
@@ -38,58 +28,32 @@ class Game{
         } else {
             console.log('this is not supposed to print!')
             console.log(object)
-            // throw new Error('Unknown Object');
         }
-    
     }
     activeNodes() {
-       
         return this.nodes.filter(node => node.capacity());
     }
     activate() {
-        
         let a = this.activeNodes()
-        
         let that = this
-        // let nodeArr = that.activeNodes();
-       
-        // nodeArr.forEach( node => {
-            // node.onFrame = function(event){
-            view.onFrame = function(event){
-                
+            view.onFrame = function(event){  
                 let nodeArr = that.activeNodes();
-                
                 nodeArr.forEach( node => {
-                
-                    
                 let color1 = node.object.fillColor.gradient.stops[0];
                 let color2 = node.object.fillColor.gradient.stops[1];
-                // let color3 = node.object.fillColor.gradient.stops[2];
-                
                 color1.offset = Math.cos(event.time*3)*0.1 + 0.1;
                 color2.offset = Math.cos(event.time*3)*0.1 + 0.75;
-                // color3.offset = Math.sin(event.time*5)*0.1 + 0.6;
-                //color.offset must be < 1
         })}
     }
     deactivate(){
-
     }
-    
-
     visibleObjects() {
         return this.nodes.concat(this.edges);
     }
-
-    checkCollisions(edge_instance) {
-      
-        const objects = this.visibleObjects();  //<===revert back to this
-        
-       
+    checkCollisions(edge_instance) { 
+        const objects = this.visibleObjects();  
         const curEdge = edge_instance.startPos
-       
         let that = this;
-        
         
         if (objects.every(node => curEdge.getIntersections(node.object).length < 2)) {
             console.log('working')
@@ -160,11 +124,8 @@ class Game{
         //At later point I can add draggable nodes
     }
 
-    legalMove(node_instance) {
-       
-        
+    legalMove(node_instance) { 
         if (!this.checkCollisions(node_instance.children.slice(-1)[0])) {
-        //debugger
         }// We spliced here to removed child incase of illegal move
     }
 
@@ -198,25 +159,7 @@ class Game{
             edge_instance.startPos.onClick = function(event) {
                 console.log('test')
             }
-        
         }
-
-
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default Game;

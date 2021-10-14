@@ -3,22 +3,7 @@ class Edge{
         this.startNode = node_instance;
         this.startPos = path_start;
     }
-    createPath(){
-
-        
+    createPath(){   
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default Edge;

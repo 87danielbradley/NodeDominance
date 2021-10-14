@@ -19,40 +19,42 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             newGame()
         }
-        
     }
 
     let formButton = document.createElement('form');
     formButton.name = 'nodeCount';
     formButton.className = "nodeCount";
 
+    
     let formField = document.createElement('INPUT')
     formField.value = "Number of Nodes"
     formField.name = "formInput";
     formField.type = "TEXT";
-
+    
+    formField.onkeydown = function(event) {
+        if (event.key === 'Enter') {
+            restartGame();
+        }
+    }
+    
     formButton.append(formField)
-
 
     myUL.append(restartButton);
     myUL.append(formButton);
 
-
-  
-
-     let colorScheme = document.getElementById("color-scheme");
-     let scheme1 = document.createElement('button')
-     scheme1.className = 'colorScheme1'
-     scheme1.innerText = 'Red Theme'
-     let scheme2 = document.createElement('button')
-     scheme2.className = 'colorScheme2'
-     scheme2.innerText = 'Green Theme'
-     let scheme3 = document.createElement('button')
-     scheme3.className = 'colorScheme3'
-     scheme3.innerText = 'Blue Theme'
-     let scheme4 = document.createElement('button')
-     scheme4.className = 'colorScheme3'
-     scheme4.innerText = "Random Theme"
+    let colorScheme = document.getElementById("color-scheme");
+    let scheme1 = document.createElement('button')
+    scheme1.className = 'colorScheme1'
+    scheme1.innerText = 'Red Theme'
+    let scheme2 = document.createElement('button')
+    scheme2.className = 'colorScheme2'
+    scheme2.innerText = 'Green Theme'
+    let scheme3 = document.createElement('button')
+    scheme3.className = 'colorScheme3'
+    scheme3.innerText = 'Blue Theme'
+    let scheme4 = document.createElement('button')
+    scheme4.className = 'colorScheme3'
+    scheme4.innerText = "Random Theme"
 
     scheme1.addEventListener('click', scheme1Change)
     function scheme1Change() {
@@ -75,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let allColors = ["aliceblue","antiquewhite","aqua","aquamarine","azure","beige","bisque","black","blanchedalmond","blue","blueviolet","brown","burlywood","cadetblue","chartreuse","chocolate","coral","cornflowerblue","cornsilk","crimson","cyan","darkblue","darkcyan","darkgoldenrod","darkgray","darkgreen","darkgrey","darkkhaki","darkmagenta","darkolivegreen","darkorange","darkorchid","darkred","darksalmon","darkseagreen","darkslateblue","darkslategray","darkslategrey","darkturquoise","darkviolet","deeppink","deepskyblue","dimgray","dimgrey","dodgerblue","firebrick","floralwhite","forestgreen","fuchsia","gainsboro","ghostwhite","gold","goldenrod","gray","green","greenyellow","grey","honeydew","hotpink","indianred","indigo","ivory","khaki","lavender","lavenderblush","lawngreen","lemonchiffon","lightblue","lightcoral","lightcyan","lightgoldenrodyellow","lightgray","lightgreen","lightgrey","lightpink","lightsalmon","lightseagreen","lightskyblue","lightslategray","lightslategrey","lightsteelblue","lightyellow","lime","limegreen","linen","magenta","maroon","mediumaquamarine","mediumblue","mediumorchid","mediumpurple","mediumseagreen","mediumslateblue","mediumspringgreen","mediumturquoise","mediumvioletred","midnightblue","mintcream","mistyrose","moccasin","navajowhite","navy","oldlace","olive","olivedrab","orange","orangered","orchid","palegoldenrod","palegreen","paleturquoise","palevioletred","papayawhip","peachpuff","peru","pink","plum","powderblue","purple","red","rosybrown","royalblue","saddlebrown","salmon","sandybrown","seagreen","seashell","sienna","silver","skyblue","slateblue","slategray","slategrey","snow","springgreen","steelblue","tan","teal","thistle","tomato","turquoise","violet","wheat","white","whitesmoke","yellow","yellowgreen"]
         body.style.background = allColors[Math.floor(Math.random()*allColors.length)]
     }
-
 
      colorScheme.append(scheme4)
      colorScheme.append(scheme1)
@@ -139,22 +140,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const canvas = document.createElement('CANVAS');
         canvas.height = Game.HEIGHT;
         canvas.width = Game.WIDTH;
-        
         canvas.id= 'paperCanvas';
         span.append(canvas);
         paper.setup('paperCanvas');
         const game = new Game(numNodes);
     }
-
-
-    // const canvas = document.getElementById("paperCanvas")
-    // canvas.height = Game.HEIGHT;
-    // canvas.width = Game.WIDTH;
-    
-    // paper.setup('paperCanvas');
-    // const game = new Game()
-    newGame()
-    // const gameView = new GameView(paper, game);
-    // gameView.start();
-
+    newGame();
 })

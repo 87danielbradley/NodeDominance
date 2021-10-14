@@ -176,7 +176,10 @@ INPUT {
   transform: translateX(-3px);
   box-shadow: 0px 0px 10px 5px #00CCFF;
 }
-
+INPUT:focus{
+  color:red;
+  
+}
 
 
 
@@ -186,22 +189,27 @@ INPUT {
   justify-content: center;
   flex-direction: column;
   margin: 5%;
-  opacity: 0.75;
+  opacity: 0.9;
   background-color: #CFCFEA;
-  background-image: linear-gradient(to right, #DCD6F7,rgba(66,72,116,0.5));
+  background-image: linear-gradient(to bottom right, #DCD6F7,rgba(9, 23, 122, 0.5));
   position: fixed;
   width: 90%;
   height: 90%;
   z-index: 100;
   border-radius: 15%;
+  transition: all 1s ease-out;
 
 }
 
 
 #splash-page > p {
-  margin-top: 200px;
+  margin-top: 10px;
   margin-left: 25px;
   margin-right: 25px;
+}
+#splash-page > h1 {
+  margin-top: 100px;
+  margin: auto;
 }
 
 

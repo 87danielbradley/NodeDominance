@@ -43,23 +43,53 @@ document.addEventListener("DOMContentLoaded", () => {
      let colorScheme = document.getElementById("color-scheme");
      let scheme1 = document.createElement('button')
      scheme1.className = 'colorScheme1'
+     scheme1.innerText = 'Red Theme'
      let scheme2 = document.createElement('button')
-     scheme1.className = 'colorScheme2'
+     scheme2.className = 'colorScheme2'
+     scheme2.innerText = 'Green Theme'
      let scheme3 = document.createElement('button')
-     scheme1.className = 'colorScheme3'
+     scheme3.className = 'colorScheme3'
+     scheme3.innerText = 'Blue Theme'
+     let scheme4 = document.createElement('button')
+     scheme4.className = 'colorScheme3'
+     scheme4.innerText = "Random Theme"
+
+    scheme1.addEventListener('click', scheme1Change)
+    function scheme1Change() {
+        let body = document.getElementById('body');
+        body.style.background = 'mediumvioletred';
+    }
+    scheme2.addEventListener('click', scheme2Change)
+    function scheme2Change() {
+        let body = document.getElementById('body')
+        body.style.background = 'lawngreen'
+    }
+    scheme3.addEventListener('click', scheme3Change)
+    function scheme3Change() {
+        let body = document.getElementById('body')
+        body.style.background = 'skyblue'
+    }
+    scheme4.addEventListener('click', scheme4Change)
+    function scheme4Change() {
+        let body = document.getElementById('body')
+        let allColors = ["aliceblue","antiquewhite","aqua","aquamarine","azure","beige","bisque","black","blanchedalmond","blue","blueviolet","brown","burlywood","cadetblue","chartreuse","chocolate","coral","cornflowerblue","cornsilk","crimson","cyan","darkblue","darkcyan","darkgoldenrod","darkgray","darkgreen","darkgrey","darkkhaki","darkmagenta","darkolivegreen","darkorange","darkorchid","darkred","darksalmon","darkseagreen","darkslateblue","darkslategray","darkslategrey","darkturquoise","darkviolet","deeppink","deepskyblue","dimgray","dimgrey","dodgerblue","firebrick","floralwhite","forestgreen","fuchsia","gainsboro","ghostwhite","gold","goldenrod","gray","green","greenyellow","grey","honeydew","hotpink","indianred","indigo","ivory","khaki","lavender","lavenderblush","lawngreen","lemonchiffon","lightblue","lightcoral","lightcyan","lightgoldenrodyellow","lightgray","lightgreen","lightgrey","lightpink","lightsalmon","lightseagreen","lightskyblue","lightslategray","lightslategrey","lightsteelblue","lightyellow","lime","limegreen","linen","magenta","maroon","mediumaquamarine","mediumblue","mediumorchid","mediumpurple","mediumseagreen","mediumslateblue","mediumspringgreen","mediumturquoise","mediumvioletred","midnightblue","mintcream","mistyrose","moccasin","navajowhite","navy","oldlace","olive","olivedrab","orange","orangered","orchid","palegoldenrod","palegreen","paleturquoise","palevioletred","papayawhip","peachpuff","peru","pink","plum","powderblue","purple","red","rosybrown","royalblue","saddlebrown","salmon","sandybrown","seagreen","seashell","sienna","silver","skyblue","slateblue","slategray","slategrey","snow","springgreen","steelblue","tan","teal","thistle","tomato","turquoise","violet","wheat","white","whitesmoke","yellow","yellowgreen"]
+        body.style.background = allColors[Math.floor(Math.random()*allColors.length)]
+    }
 
 
+     colorScheme.append(scheme4)
      colorScheme.append(scheme1)
      colorScheme.append(scheme2)
      colorScheme.append(scheme3)
 
     let personalLinks = document.getElementById('personal-links');
     let social1 = document.createElement('button')
-    social1.className = "github"
+    social1.className = "fa fa-github"
     let social2 = document.createElement('button')
-    social2.className = "linkedIn"
+    social2.className = "fa fa-linkedin"
     let social3 = document.createElement('button')
     social3.className = "porfolio"
+    social3.innerText = "Me"
 
     social1.addEventListener('click', social1Link)
     function social1Link() {
@@ -86,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     help.addEventListener("click", helpPage);
     function helpPage() {
         splash.style.zIndex = 100;
-        splash.style.opacity = 0.75;
+        splash.style.opacity = 0.9;
     }
 
     helpLink.append(help);

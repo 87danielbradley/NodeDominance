@@ -17,7 +17,8 @@ class Game{
             this.add(new Node(Utility.randomPosition((Game.WIDTH*0.75), (75 + Game.HEIGHT*0.75)), this)); //debugger
         }
     }
-    add(object) {   
+    add(object) {  
+        
         if (object instanceof Node) {
             this.nodes.push(object);
         } else if (object instanceof Edge) {
@@ -50,74 +51,202 @@ class Game{
     visibleObjects() {
         return this.nodes.concat(this.edges);
     }
-    checkCollisions(edge_instance) { 
+    //true edge instance
+    collisionPath(edge_instance) {
+        const paperItems = paper.project.activeLayer.children.filter( child => child.visible);
+        const curPath = edge_instance.startPos
+        for (let i = 0; i < paperItems.length; i++) {
+            if (paperItems[i].closed === 'false' && curPath !== paperItems[i] &&curPath.getIntersections(paperItems[i]).length > 0) {
+                console.log(paperItems[i])
+                console.log(curPath)
+                return true
+            }
+        }
+        // let pathCollided = paperItems.some(path => {curPath.getIntersections(path).length > 0})
+        // console.log(`Collided with path ${pathCollided}`)
+        // return pathCollided
+        return false
+    }
+
+    collisionCount(edge_instance) { 
+        const paperItem = paper.project.activeLayer.children;  
+        const curEdge = edge_instance.startPos
+        let that = this;
+        let count = 0
+        console.log(paperItem.length)
+        for (let i = 0; i< paperItem.length; i++) {
+            if (paperItem[i].visible && paperItem[i] !== curEdge) {
+                paper.project.activeLayer.children[1].getIntersections(curEdge.segments[0].path)
+                if (paperItem[i].getIntersections(curEdge.segments[0].path).length> 0) {
+                    count++;
+                }
+                if (paperItem[i].getIntersections(curEdge.segments[curEdge.segments.length-1].path).length> 0) {
+                    count++;
+                }
+                // count += paperItem[i].getIntersections(curEdge.segments[0].path).length;
+                // count += paperItem[i].getIntersections(curEdge.segments[curEdge.segments.length-1].path).length;
+
+                // count += curEdge.getIntersections(paperItem[i]).length
+                console.log(curEdge.getIntersections(paperItem[i]));
+            }
+        }
+        console.log(`collision count is ${count}`)
+        return count;
+        }
+
+    checkCollisions(edge_instance){ 
         const objects = this.visibleObjects();  
         const curEdge = edge_instance.startPos
         let that = this;
         
+        if(!this.collisionPath(edge_instance) && this.collisionCount(edge_instance) === 4) {
+            //then legal move
+            console.log('legal move')
+        } else {
+            console.log('illegal move')
+            
+            edge_instance.startPos.visible = false;
+        }
+        ;
+        
+        
         if (objects.every(node => curEdge.getIntersections(node.object).length < 2)) {
             console.log('working')
         }
-
+        
         
         for (let i =0; i < objects.length; i++) {
             // let intersections = curEdge.getIntersections(objects[i]); // <===revert
             let intersections = curEdge.getIntersections(objects[i].object)
             //debugger on intersections formula
             // if (intersections[0]["point"]['x']) {
-            
-            
-            if (intersections.length>0) {
-               
-                // objects[i].selection = true;
-                // objects[i].fillColor = 'red';
                 
                 
-                if (!objects[i].object.closed) {
+                if (intersections.length>0) {
                     
-                    let edge_idx = that.edges.indexOf(edge_instance);
-                    if (edge_idx > -1) {
-                    that.edges.splice(edge_idx,1);
-                    }
-                    let node_idx = objects[i].children.indexOf(edge_instance);
-                    if (node_idx > -1) {
+                    // objects[i].selection = true;
+                    // objects[i].fillColor = 'red';
+                    
+                    
+                    if (!objects[i].object.closed) {
                         
-                        objects[i].activate()//debugger
-                        objects[i].splice(node_idx,1)
-                    }
-
-                    return true;
-                } 
-                
+                        let edge_idx = that.edges.indexOf(edge_instance);
+                        if (edge_idx > -1) {
+                            that.edges.splice(edge_idx,1);
+                        }
+                        let node_idx = objects[i].children.indexOf(edge_instance);
+                        if (node_idx > -1) {
+                            
+                            objects[i].activate()//debugger
+                            objects[i].splice(node_idx,1)
+                        }
+                        
+                        return true;
+                    } 
+                    
+                }
+                //may need to compare edge vs node
+                //to do logic check on number of connections
             }
-            //may need to compare edge vs node
-            //to do logic check on number of connections
-        }
-        for (let i =0; i < objects.length; i++) {
-            // let intersections = curEdge.getIntersections(objects[i]); // <===revert
-            let intersections = edge_instance.startPos.getIntersections(objects[i].object)
-            //debugger on intersections formula
-            // if (intersections[0]["point"]['x']) {
+            for (let i =0; i < objects.length; i++) {
+                // let intersections = curEdge.getIntersections(objects[i]); // <===revert
+                let intersections = edge_instance.startPos.getIntersections(objects[i].object)
+                //debugger on intersections formula
+                // if (intersections[0]["point"]['x']) {
+                    
+                    if (intersections.length>0) {
+                        
+                        // objects[i].fillColor = 'red';
+                        
+                        if (objects[i].object.closed) {
+                            if (!objects[i].children.includes(edge_instance)){
+                                
+                                objects[i].addAChild(edge_instance);
+                                objects[i].object.bringToFront();
+                            }
+                        } 
+                        
+                    } 
+                    //may need to compare edge vs node
+                    //to do logic check on number of connections
+                }
+                
+                this.buildNode(edge_instance)
+                return false;
+            }
             
-            if (intersections.length>0) {
+            // checkCollisions(edge_instance) { 
+            //     const objects = this.visibleObjects();  
+            //     const curEdge = edge_instance.startPos
+            //     let that = this;
                 
-                // objects[i].fillColor = 'red';
+            //     console.log(this)
+            //     this.collisionPath(edge_instance)
+        
+            //     if (objects.every(node => curEdge.getIntersections(node.object).length < 2)) {
+            //         console.log('working')
+            //     }
+        
                 
-                if (objects[i].object.closed) {
-                    if (!objects[i].children.includes(edge_instance)){
-                    objects[i].addAChild(edge_instance);
-                    objects[i].object.bringToFront();
-                    }
-                } 
+            //     for (let i =0; i < objects.length; i++) {
+            //         // let intersections = curEdge.getIntersections(objects[i]); // <===revert
+            //         let intersections = curEdge.getIntersections(objects[i].object)
+            //         //debugger on intersections formula
+            //         // if (intersections[0]["point"]['x']) {
+                    
+                    
+            //         if (intersections.length>0) {
+                       
+            //             // objects[i].selection = true;
+            //             // objects[i].fillColor = 'red';
+                        
+                        
+            //             if (!objects[i].object.closed) {
+                            
+            //                 let edge_idx = that.edges.indexOf(edge_instance);
+            //                 if (edge_idx > -1) {
+            //                 that.edges.splice(edge_idx,1);
+            //                 }
+            //                 let node_idx = objects[i].children.indexOf(edge_instance);
+            //                 if (node_idx > -1) {
+                                
+            //                     objects[i].activate()//debugger
+            //                     objects[i].splice(node_idx,1)
+            //                 }
+        
+            //                 return true;
+            //             } 
+                        
+            //         }
+            //         //may need to compare edge vs node
+            //         //to do logic check on number of connections
+            //     }
+            //     for (let i =0; i < objects.length; i++) {
+            //         // let intersections = curEdge.getIntersections(objects[i]); // <===revert
+            //         let intersections = edge_instance.startPos.getIntersections(objects[i].object)
+            //         //debugger on intersections formula
+            //         // if (intersections[0]["point"]['x']) {
+                    
+            //         if (intersections.length>0) {
+                        
+            //             // objects[i].fillColor = 'red';
+                        
+            //             if (objects[i].object.closed) {
+            //                 if (!objects[i].children.includes(edge_instance)){
+        
+            //                 objects[i].addAChild(edge_instance);
+            //                 objects[i].object.bringToFront();
+            //                 }
+            //             } 
+                        
+            //         } 
+            //         //may need to compare edge vs node
+            //         //to do logic check on number of connections
+            //     }
                 
-            } 
-            //may need to compare edge vs node
-            //to do logic check on number of connections
-        }
-        this.buildNode(edge_instance)
-        return false;
-    }
-
+            //     this.buildNode(edge_instance)
+            //     return false;
+            // }
     moveObjects() {
         //grab all objects and gently shake them
         //if failed attempt
@@ -150,14 +279,14 @@ class Game{
             that.add(edge_instance);
            
             that.add(new Node([event.point.x, event.point.y], that))
-            that.nodes.slice(-1)[0].addAChild(this);
-            that.nodes.slice(-1)[0].addAChild(this);
+            that.nodes.slice(-1)[0].addAChild(edge_instance);
+            that.nodes.slice(-1)[0].addAChild(edge_instance);
             dottedCircle.visible = false;
             edge_instance.startPos.onMouseMove = function(event) {
             event.stopPropagation();
             }
             edge_instance.startPos.onClick = function(event) {
-                console.log('test')
+                console.log(`You don't need to click here!`)
             }
         }
     }

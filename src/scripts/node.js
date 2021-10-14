@@ -1,25 +1,22 @@
 import Edge from "./edge";
+import Game from "./game.js";
 
-// console.log('inside node class')
+
 class Node{
-    // debugger
+    
     constructor(pos, game_instance) {
         paper.project.activeLayer.activate()
-        this.object = new Path.Circle(new Point(pos),50);
+        
+        this.object = new Path.Circle(new Point(pos),Game.WIDTH/20);
         // this.object = paper.project.activeLayer.lastChild
         this.children = []
         this.game = game_instance
 
-        // this.paper = paper
-        // this.tool = Tool
-        
-        // view.draw()
         this.colorize();
         //change color to gradient
 
-        // let tool = new Tool();
-        // console.log(tool)
         this.activate();
+        
        
 
         
@@ -43,50 +40,50 @@ class Node{
     activate() {
         // let color1 = this.object.fillColor.gradient.stops[0];
         // let color2 = this.object.fillColor.gradient.stops[1];
-        // let color3 = this.object.fillColor.gradient.stops[2];
-        // console.log(paper.activeLayer)
+        
+        
         // view.onFrame = function(event){
-        //     // console.log('working')
+        //     
         //     color1.offset = Math.sin(event.time*1)*0.1 + 0.1;
         //     color2.offset = Math.sin(event.time*3)*0.1 + 0.7;
-        //     // color3.offset = Math.sin(event.time*5)*0.1 + 0.6;
+        //     
         // }
         let that = this;
         let tool = new Tool();
         tool.minDistance = 15;
         tool.maxDistance = 40;
         let path;
-        // console.log(Path)
+        
         this.object.onMouseEnter = function(event) {
-            // if (that.capacity()) event.stopPropagation();
-            // console.log('hovering over node')
+            if (that.capacity()) event.stopPropagation();
+            
             that.object.shadowColor = new Color(0.4, 0.4, 1);
             that.object.shadowBlur = 50;
             that.object.shadowOffset = new Point(5, 5);
         }
         this.object.onMouseLeave = function(event) {
-            // console.log('hovering over node')
+            
             that.object.shadowColor = new Color(0, 0, 0);
             that.object.shadowBlur = 0;
             that.object.shadowOffset = new Point(0, 0);
         }
         this.object.onMouseDown = function(event) {
             
-            // console.log('clicked')
+           
             // if (that.capacity()) event.stopPropagation();
-            //console.log(that.object.getNearestPoint(event.point))
+            
             // edge.object.strokeColor = "green";
             // edge.object.add(event.point);
             // edge.object.smooth 
             path = new Path();
             
             path.strokeColor = 'green';
-            path.strokeWidth = 20;
+            path.strokeWidth = 10;
             // path.fillColor = "green";
             path.strokeCap = 'round';
             path.strokeJoin = 'round';
-            path.shadowColor = new Color(0,0,0);
-            path.shadowBlue = 30;
+            path.shadowColor = new Color(0,0.75,1);
+            path.shadowBlur = 30;
             path.shadowOffset = new Point(5,5);
             path.opacity = 0.6;
             path.blendMode = 'multiply';
@@ -95,19 +92,18 @@ class Node{
             path.add(event.point);
 
             let edge = new Edge(that, path);
-            // console.log(that)
-            // console.log(edge)
+            
             that.addAChild(edge); //
             
         }
         this.object.onMouseDrag = function(event) {
-            // console.log('dragged');
+            
             // if (that.capacity()) event.stopPropagation();
             path.add(event.point);
             
         }
         this.object.onMouseUp = function(event) {
-            // console.log(that) // node class
+           
            
             // that.game.add(that.children.slice(-1)[0]);
             that.object.bringToFront();
@@ -115,8 +111,8 @@ class Node{
             if (!that.capacity()){
                 that.deactivate()
             }
-            // console.log(paper.project.activeLayer.lastChild.lastSegment.getPoint())
-            // debugger
+           
+            
 
         }
 
@@ -145,7 +141,7 @@ class Node{
         //     recPath.position = nearestPoint;
         //     // recPath.applyMatrix = false;
             
-        //     // console.log('flag')
+        
             
         //     test.rotate(nearestPoint.angleInDegrees, that.object.position)
         // }
@@ -157,7 +153,7 @@ class Node{
         let that = this;
         let tool = new Tool();
         let path;
-        // console.log(Path)
+        
         this.object.onMouseEnter = function(event) {
             event.stopPropagation();
         }
@@ -181,12 +177,14 @@ class Node{
         this.game.add(object);
         this.children.push(object);
         if (!this.capacity()) {
-            console.log(179)
-            console.log(this)
-            this.object.fillColor = "red"
+            
+            this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
+              
+            // this.object.fillColor = "red"
+            
             
         } else {
-            // console.log(this.capacity())
+           
         }
     }
     

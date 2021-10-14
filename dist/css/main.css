@@ -1,0 +1,228 @@
+/*!*************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
+  \*************************************************************************************************************************************/
+* {
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+  #main > h1 {
+  border: 4px solid purple;
+  padding: 20px;
+}
+
+#main {
+  color: purple;
+}
+
+#body {
+  background-color: #CFCFEA;
+  background-image: linear-gradient(to right, #DCD6F7,rgba(66,72,116,0.5))
+
+}
+canvas {
+  background-color: rgba(0,0,0,0.75);
+  border-radius:10%;
+  
+}
+canvas:hover {
+  box-shadow: 0px 0px 10px 5px #00CCFF;
+}
+
+#game-controls {
+  display: flex;
+  
+  
+}
+#game-controls > button {
+  background-color:rgba(0,0,0,0.5);
+  margin: 10px 20px 10px 20px;
+  height: 65px;
+  width: 200px;
+  border-radius: 15%;
+  font:larger;
+  transition: width 1s, height 1s, background-color 1s, transform 1s;
+}
+#game-controls > button:hover {
+  background-color: #00FDDC;
+  margin: 10px 20px 10px 20px;
+  height: 65px;
+  width: 200px;
+  border-radius: 15%;
+  font:larger;
+  transform: translateY(-5px);
+  transform: translateX(-3px);
+  box-shadow: 0px 0px 10px 5px #00CCFF;
+}
+
+INPUT {
+  background-color: #5b6362;
+  margin: 20px;
+  height: 40px;
+  width: 150px;
+  
+  color: rgb(199, 195, 195);
+}
+
+
+
+#color-scheme {
+  display: flex;
+  width: 15%;
+  justify-content: left;
+  padding: 20px 20px 20px 5px;
+  
+
+}
+#color-scheme > button {
+ 
+  background-color:rgba(0,0,0,0.5);
+  margin: 0px 0px 50px 0px;
+  height: 10%;
+  
+  border-radius: 15%;
+  font:larger;
+  transition: width 1s, height 1s, background-color 1s, transform 1s;
+}
+#color-scheme > button:hover {
+  height: 10%;
+  margin: 0px 0px 50px 0px;
+  border-radius: 15%;
+  background-color: #AA3E98;
+  transform: translateY(-5px);
+  transform: translateX(-3px);
+  box-shadow: 0px 0px 10px 5px #00CCFF;
+}
+
+#color-controls {
+  background-color: #9368B7;
+}
+
+#upper-section, #middle-section, #bottom-section{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+#upper-section {
+  justify-content: left;
+}
+
+.nodeCount {
+  border-radius:10%;
+}
+
+.start {
+  border-radius: 10%;
+}
+
+#gameControls {
+  display: flex;
+  justify-content:stretch;
+}
+
+#color-scheme {
+  display: flex;
+  flex-direction: column;
+}
+
+#canvas {
+  width: 75%;
+  height: 66%;
+}
+
+#personal-links {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  z-index: 1000;
+  
+}
+#personal-links > button{
+  background-color:rgba(0,0,0,0.5);
+  margin: 10px 10px 10px 10px;
+  height: 50px;
+  width: 50px;
+  border-radius: 15%;
+  transition: width 1s, height 1s, background-color 1s, transform 1s;
+}
+#personal-links > button:hover{
+  margin: 10px 10px 10px 10px;
+  height: 50px;
+  width: 50px;
+  border-radius: 15%;
+  background-color: #cfa5a5;
+  transform: translateY(-5px);
+  transform: translateX(-3px);
+  box-shadow: 0px 0px 10px 5px #00CCFF;
+}
+#help {
+  margin-right: 200px;
+}
+
+.help-button {
+  background-color:rgba(0,0,0,0.5);
+  margin: 10px 10px 10px 50px;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  transition: width 1s, height 1s, background-color 1s, transform 1s;
+}
+.help-button:hover {
+  margin: 10px 10px 10px 50px;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  background-color: #f5dd0b;
+  transform: translateY(-5px);
+  transform: translateX(-3px);
+  box-shadow: 0px 0px 10px 5px #00CCFF;
+}
+
+
+
+
+#splash-page {
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5%;
+  opacity: 0.75;
+  background-color: #CFCFEA;
+  background-image: linear-gradient(to right, #DCD6F7,rgba(66,72,116,0.5));
+  position: fixed;
+  width: 90%;
+  height: 90%;
+  z-index: 100;
+  border-radius: 15%;
+
+}
+
+
+#splash-page > p {
+  margin-top: 200px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+
+.splash-button {
+  background-color:rgba(0,0,0,0.5);
+  margin: 50px;
+  margin: auto;
+  height: 100px;
+  width: 200px;
+  border-radius: 15%;
+  transition: width 1s, height 1s, background-color 1s, transform 1s;
+
+}
+.splash-button:hover {
+  margin: 50px;
+  margin: auto;
+  height: 100px;
+  width: 200px;
+  border-radius: 15%;
+  background-color: #a5cacf;
+  transform: translateY(-5px);
+  transform: translateX(-3px);
+  box-shadow: 0px 0px 10px 5px #00CCFF;
+}

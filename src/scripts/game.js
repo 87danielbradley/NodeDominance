@@ -8,14 +8,18 @@ class Game{
         this.edges = [];
         this.start(numNodes);
         this.activate();
+        
     }
     static BACKGROUND = "#CFCFEA";
-    static WIDTH = 2000;
-    static HEIGHT = 1500;
-
-
+    
+    static WIDTH = window.innerWidth*4/5;
+    // static WIDTH = document.getElementById('paperCanvas').width
+    
+    static HEIGHT = window.innerHeight*2/3;
+    // static HEIGHT = document.getElementById('paperCanvas').height
+    
     start(numNodes) {
-        // debugger
+        
         for (let i = 0; i < numNodes; i++) {
             this.add(new Node(Utility.randomPosition((Game.WIDTH*0.75), (75 + Game.HEIGHT*0.75)), this)); //debugger
         }
@@ -28,7 +32,7 @@ class Game{
             this.nodes.push(object);
         } else if (object instanceof Edge) {
             if (!this.checkCollisions) {
-                // debugger
+               
                 this.edges.push(object);
             }
         } else {
@@ -39,35 +43,33 @@ class Game{
     
     }
     activeNodes() {
-        // console.log('line33')
-        // console.log(this.nodes)
-        // return this.nodes.filter(node => node.children < 3);
+       
         return this.nodes.filter(node => node.capacity());
     }
     activate() {
-        // console.log(paper.activeLayer)
+        
         let a = this.activeNodes()
-        // debugger
+        
         let that = this
         // let nodeArr = that.activeNodes();
-        // console.log(nodeArr)
+       
         // nodeArr.forEach( node => {
             // node.onFrame = function(event){
             view.onFrame = function(event){
-                console.log()
+                
                 let nodeArr = that.activeNodes();
-                // console.log(nodeArr)
+                
                 nodeArr.forEach( node => {
                 
-                    // debugger
-                    // console.log(node)
+                    
                 let color1 = node.object.fillColor.gradient.stops[0];
                 let color2 = node.object.fillColor.gradient.stops[1];
                 // let color3 = node.object.fillColor.gradient.stops[2];
-                // console.log('working')
+                
                 color1.offset = Math.cos(event.time*3)*0.1 + 0.1;
                 color2.offset = Math.cos(event.time*3)*0.1 + 0.75;
                 // color3.offset = Math.sin(event.time*5)*0.1 + 0.6;
+                //color.offset must be < 1
         })}
     }
     deactivate(){
@@ -82,77 +84,40 @@ class Game{
     checkCollisions(edge_instance) {
       
         const objects = this.visibleObjects();  //<===revert back to this
-        // const objects = paper.project.activeLayer.children
-        // debugger
+        
+       
         const curEdge = edge_instance.startPos
-        // console.log('68')
-        // console.log(paper.project.activeLayer.lastChild)
-        // console.log(curEdge)
+       
         let that = this;
-        // console.log(this.visibleObjects())
-        console.log(objects.length)
-        // debugger
+        
+        
         if (objects.every(node => curEdge.getIntersections(node.object).length < 2)) {
             console.log('working')
         }
 
-        // for (let i =0; i < objects.length; i++) {
-        //     // let intersections = curEdge.getIntersections(objects[i]); // <===revert
-        //     let intersections = curEdge.getIntersections(objects[i].object)
-            //debugger on intersections formula
-            // if (intersections[0]["point"]['x']) {
-            // debugger
-            // console.log(intersections)
-            // if (intersections.length === 0) {
-            //     // console.log(i)
-            //     // objects[i].selection = true;
-            //     // objects[i].fillColor = 'red';
-            //     console.log(objects)
-            //     // debugger
-            //     if (!objects[i].object.closed) {
-            //         // debugger
-            //         let edge_idx = that.edges.indexOf(edge_instance);
-            //         if (edge_idx > -1) {
-            //         that.edges.splice(edge_idx,1);
-            //         }
-            //         let node_idx = objects[i].children.indexOf(edge_instance);
-            //         if (node_idx > -1) {
-            //             console.log(114)
-            //             console.log(objects[i])
-            //             objects[i].activate()//debugger
-            //             objects[i].splice(node_idx,1)
-            //         }
-
-            //         return true;
-            //     } 
-                
-            // }
-            //may need to compare edge vs node
-            //to do logic check on number of connections
-        // }
+        
         for (let i =0; i < objects.length; i++) {
             // let intersections = curEdge.getIntersections(objects[i]); // <===revert
             let intersections = curEdge.getIntersections(objects[i].object)
             //debugger on intersections formula
             // if (intersections[0]["point"]['x']) {
-            // debugger
-            console.log(intersections)
+            
+            
             if (intersections.length>0) {
-                // console.log(i)
+               
                 // objects[i].selection = true;
                 // objects[i].fillColor = 'red';
-                console.log(objects)
-                // debugger
+                
+                
                 if (!objects[i].object.closed) {
-                    // debugger
+                    
                     let edge_idx = that.edges.indexOf(edge_instance);
                     if (edge_idx > -1) {
                     that.edges.splice(edge_idx,1);
                     }
                     let node_idx = objects[i].children.indexOf(edge_instance);
                     if (node_idx > -1) {
-                        console.log(114)
-                        console.log(objects[i])
+                        
                         objects[i].activate()//debugger
                         objects[i].splice(node_idx,1)
                     }
@@ -169,14 +134,11 @@ class Game{
             let intersections = edge_instance.startPos.getIntersections(objects[i].object)
             //debugger on intersections formula
             // if (intersections[0]["point"]['x']) {
-            // debugger
-            console.log(intersections)
+            
             if (intersections.length>0) {
-                // console.log(i)
-                // objects[i].selection = true;
+                
                 // objects[i].fillColor = 'red';
-                console.log(objects)
-                // debugger
+                
                 if (objects[i].object.closed) {
                     if (!objects[i].children.includes(edge_instance)){
                     objects[i].addAChild(edge_instance);
@@ -199,10 +161,10 @@ class Game{
     }
 
     legalMove(node_instance) {
-        console.log('121')
+       
         
         if (!this.checkCollisions(node_instance.children.slice(-1)[0])) {
-        console.log(node_instance.children)
+        //debugger
         }// We spliced here to removed child incase of illegal move
     }
 
@@ -210,7 +172,7 @@ class Game{
         let that = this;
         let dottedCircle = new Path.Circle({
             center: view.center,
-            radius: 50,
+            radius: Game.WIDTH/20,
             strokeColor: 'black',
             stokeWidth: 3
         })
@@ -225,13 +187,16 @@ class Game{
 
         edge_instance.startPos.onClick = function(event) {
             that.add(edge_instance);
-           console.log(that);
+           
             that.add(new Node([event.point.x, event.point.y], that))
             that.nodes.slice(-1)[0].addAChild(this);
             that.nodes.slice(-1)[0].addAChild(this);
             dottedCircle.visible = false;
             edge_instance.startPos.onMouseMove = function(event) {
             event.stopPropagation();
+            }
+            edge_instance.startPos.onClick = function(event) {
+                console.log('test')
             }
         
         }

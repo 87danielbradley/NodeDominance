@@ -35,6 +35,12 @@ Also included:
 - There will be a help icon in the lower right
 - There will be a reset game button and an option to add starting nodes
 
+## Game Play
+
+<p align="center">
+<img src="./screenShot.png" />
+</p>
+
 ## Technologies, Libraries, APIs
 
 This project will be implemented with the following technologies:

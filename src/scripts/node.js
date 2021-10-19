@@ -104,15 +104,23 @@ class Node{
     }
     addAChild(object) {
         this.game.add(object);
-        this.children.push(object);
-        if (!this.capacity()) {
-            this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
-        } else {
+        if (this.capacity) {
+            this.children.push(object)
         }
+        
     }
     capacity() {
-        let visibleChild = this.children.filter(child => child.visible)
-        return visibleChild < 3;
+        
+        let visibleChild = this.children.filter(child => child.startPos.visible)
+        
+        if (visibleChild.length > 3){
+            this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
+        } else {
+            this.object.fillColor.gradient.stops = [['yellow',0.01],['green', 0.75],['black', 1]]
+            
+            
+        }
+        return visibleChild.length < 3;
     }
     remove(edge_instance) {
         this.children.filter(child => child !== edge_instance)

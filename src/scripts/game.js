@@ -26,10 +26,7 @@ class Game{
                
                 this.edges.push(object);
             }
-        } else {
-            console.log('this is not supposed to print!')
-            console.log(object)
-        }
+        } 
     }
     activeNodes() {
         return this.nodes.filter(node => node.capacity());
@@ -53,17 +50,16 @@ class Game{
     }
     //true edge instance
     collisionPath(edge_instance) {
-        const paperItems = paper.project.activeLayer.children.filter( child => child.visible);
+        const paperItems = paper.project.activeLayer.children.filter( child => child.visible && !child.closed);
         const curPath = edge_instance.startPos
         for (let i = 0; i < paperItems.length; i++) {
-            if (paperItems[i].closed === 'false' && curPath !== paperItems[i] &&curPath.getIntersections(paperItems[i]).length > 0) {
-                console.log(paperItems[i])
-                console.log(curPath)
+            if (curPath.getIntersections(paperItems[i]).length > 0) {
+                
                 return true
             }
         }
         // let pathCollided = paperItems.some(path => {curPath.getIntersections(path).length > 0})
-        // console.log(`Collided with path ${pathCollided}`)
+        
         // return pathCollided
         return false
     }
@@ -73,7 +69,7 @@ class Game{
         const curEdge = edge_instance.startPos
         let that = this;
         let count = 0
-        console.log(paperItem.length)
+        
         let parArr = [];
         for (let i = 0; i< paperItem.length; i++) {
             if (paperItem[i].visible && paperItem[i] !== curEdge) {
@@ -90,10 +86,10 @@ class Game{
                 // count += paperItem[i].getIntersections(curEdge.segments[curEdge.segments.length-1].path).length;
 
                 // count += curEdge.getIntersections(paperItem[i]).length
-                console.log(curEdge.getIntersections(paperItem[i]));
+                
             }
         }
-        console.log(`collision count is ${count}`)
+        
         
         return [...new Set(parArr)] ;
         }
@@ -106,7 +102,7 @@ class Game{
         let collisions = this.collisionCount(edge_instance)
         if(!collideWithPath && collisions.length === 2) {
             //then legal move
-            console.log('legal move')
+            
             this.nodes.forEach(node => {
                 if (collisions.includes(node.object)) {
                     node.addAChild(edge_instance);
@@ -121,11 +117,12 @@ class Game{
             that.buildNode(edge_instance)
             return true; //meaning good move
         } else {
-            console.log('illegal move')
+            
             this.nodes.forEach(node => {
                 if (collisions.includes(node.object)) {
                     node.remove(edge_instance);
                     node.object.bringToFront();
+                    node.activate()
                 }
             })
             edge_instance.startPos.visible = false;
@@ -143,11 +140,11 @@ class Game{
             //     const curEdge = edge_instance.startPos
             //     let that = this;
                 
-            //     console.log(this)
+            //     
             //     this.collisionPath(edge_instance)
         
             //     if (objects.every(node => curEdge.getIntersections(node.object).length < 2)) {
-            //         console.log('working')
+            //         
             //     }
         
                 

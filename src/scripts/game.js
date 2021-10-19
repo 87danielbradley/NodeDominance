@@ -74,14 +74,17 @@ class Game{
         let that = this;
         let count = 0
         console.log(paperItem.length)
+        let parArr = [];
         for (let i = 0; i< paperItem.length; i++) {
             if (paperItem[i].visible && paperItem[i] !== curEdge) {
                 paper.project.activeLayer.children[1].getIntersections(curEdge.segments[0].path)
                 if (paperItem[i].getIntersections(curEdge.segments[0].path).length> 0) {
                     count++;
+                    parArr.push(paperItem[i]);
                 }
                 if (paperItem[i].getIntersections(curEdge.segments[curEdge.segments.length-1].path).length> 0) {
                     count++;
+                    parArr.push(paperItem[i]);
                 }
                 // count += paperItem[i].getIntersections(curEdge.segments[0].path).length;
                 // count += paperItem[i].getIntersections(curEdge.segments[curEdge.segments.length-1].path).length;
@@ -91,88 +94,48 @@ class Game{
             }
         }
         console.log(`collision count is ${count}`)
-        return count;
+        
+        return [...new Set(parArr)] ;
         }
 
     checkCollisions(edge_instance){ 
         const objects = this.visibleObjects();  
         const curEdge = edge_instance.startPos
         let that = this;
-        
-        if(!this.collisionPath(edge_instance) && this.collisionCount(edge_instance) === 4) {
+        let collideWithPath = this.collisionPath(edge_instance)
+        let collisions = this.collisionCount(edge_instance)
+        if(!collideWithPath && collisions.length === 2) {
             //then legal move
             console.log('legal move')
+            this.nodes.forEach(node => {
+                if (collisions.includes(node.object)) {
+                    node.addAChild(edge_instance);
+                    node.object.bringToFront();
+                }
+            })
+            // collisions.forEach(parent => )
+            // objects[i].addAChild(edge_instance);
+            // objects[i].object.bringToFront();
+
+
+            that.buildNode(edge_instance)
+            return true; //meaning good move
         } else {
             console.log('illegal move')
-            
+            this.nodes.forEach(node => {
+                if (collisions.includes(node.object)) {
+                    node.remove(edge_instance);
+                    node.object.bringToFront();
+                }
+            })
             edge_instance.startPos.visible = false;
-        }
-        ;
-        
-        
-        if (objects.every(node => curEdge.getIntersections(node.object).length < 2)) {
-            console.log('working')
+            return false; //meaning bad move
         }
         
         
-        for (let i =0; i < objects.length; i++) {
-            // let intersections = curEdge.getIntersections(objects[i]); // <===revert
-            let intersections = curEdge.getIntersections(objects[i].object)
-            //debugger on intersections formula
-            // if (intersections[0]["point"]['x']) {
-                
-                
-                if (intersections.length>0) {
-                    
-                    // objects[i].selection = true;
-                    // objects[i].fillColor = 'red';
-                    
-                    
-                    if (!objects[i].object.closed) {
-                        
-                        let edge_idx = that.edges.indexOf(edge_instance);
-                        if (edge_idx > -1) {
-                            that.edges.splice(edge_idx,1);
-                        }
-                        let node_idx = objects[i].children.indexOf(edge_instance);
-                        if (node_idx > -1) {
-                            
-                            objects[i].activate()//debugger
-                            objects[i].splice(node_idx,1)
-                        }
-                        
-                        return true;
-                    } 
-                    
-                }
-                //may need to compare edge vs node
-                //to do logic check on number of connections
-            }
-            for (let i =0; i < objects.length; i++) {
-                // let intersections = curEdge.getIntersections(objects[i]); // <===revert
-                let intersections = edge_instance.startPos.getIntersections(objects[i].object)
-                //debugger on intersections formula
-                // if (intersections[0]["point"]['x']) {
-                    
-                    if (intersections.length>0) {
-                        
-                        // objects[i].fillColor = 'red';
-                        
-                        if (objects[i].object.closed) {
-                            if (!objects[i].children.includes(edge_instance)){
-                                
-                                objects[i].addAChild(edge_instance);
-                                objects[i].object.bringToFront();
-                            }
-                        } 
-                        
-                    } 
-                    //may need to compare edge vs node
-                    //to do logic check on number of connections
-                }
-                
-                this.buildNode(edge_instance)
-                return false;
+        
+        
+        
             }
             
             // checkCollisions(edge_instance) { 

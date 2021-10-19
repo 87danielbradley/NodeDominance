@@ -111,7 +111,11 @@ class Node{
         }
     }
     capacity() {
-        return this.children.length < 3;
+        let visibleChild = this.children.filter(child => child.visible)
+        return visibleChild < 3;
+    }
+    remove(edge_instance) {
+        this.children.filter(child => child !== edge_instance)
     }
 }
 export default Node;

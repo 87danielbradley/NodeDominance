@@ -26,5 +26,9 @@
     "sass-loader": "^12.1.0",
     "webpack": "^5.58.1",
     "webpack-cli": "^4.9.0"
+  },
+  "devDependencies": {
+    "paper": "^0.10.3",
+    "paper-loader": "^0.1.2"
   }
 }

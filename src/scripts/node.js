@@ -1,5 +1,6 @@
 import Edge from "./edge";
 import Game from "./game.js";
+import * as paper from 'paper'
 
 class Node{
     constructor(pos, game_instance) {
@@ -112,7 +113,7 @@ class Node{
     capacity() {
         
         let visibleChild = this.children.filter(child => child.startPos.visible)
-        
+        console.log(visibleChild)
         if (visibleChild.length > 3){
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
         } else {
@@ -120,6 +121,7 @@ class Node{
             
             
         }
+        
         return visibleChild.length < 3;
     }
     remove(edge_instance) {

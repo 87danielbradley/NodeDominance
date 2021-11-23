@@ -1,5 +1,6 @@
 import Node from "./node.js"
 import Edge from "./edge.js"
+import * as paper from 'paper'
 const Utility = require("./utility.js")
 
 class Game{
@@ -26,7 +27,9 @@ class Game{
                
                 this.edges.push(object);
             }
-        } 
+        } else {
+            debugger
+        }
     }
     activeNodes() {
         return this.nodes.filter(node => node.capacity());
@@ -46,7 +49,10 @@ class Game{
     deactivate(){
     }
     visibleObjects() {
+        
         return this.nodes.concat(this.edges);
+        //returns array of nodes objects [{}, {}]
+
     }
     //true edge instance
     collisionPath(edge_instance) {

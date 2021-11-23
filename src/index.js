@@ -1,6 +1,7 @@
 
 import Game from "./scripts/game.js"
 import GameView from "./scripts/game_view.js"
+import * as paper from 'paper'
 
 paper.install(window)
 document.addEventListener("DOMContentLoaded", () => {
@@ -44,16 +45,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let colorScheme = document.getElementById("color-scheme");
     let scheme1 = document.createElement('button')
-    scheme1.className = 'colorScheme1'
+    scheme1.className = 'colorScheme1 color-scheme'
     scheme1.innerText = 'Red Theme'
     let scheme2 = document.createElement('button')
-    scheme2.className = 'colorScheme2'
+    scheme2.className = 'colorScheme2 color-scheme'
     scheme2.innerText = 'Green Theme'
     let scheme3 = document.createElement('button')
-    scheme3.className = 'colorScheme3'
+    scheme3.className = 'colorScheme3 color-scheme'
     scheme3.innerText = 'Blue Theme'
     let scheme4 = document.createElement('button')
-    scheme4.className = 'colorScheme3'
+    scheme4.className = 'colorScheme3 color-scheme'
     scheme4.innerText = "Random Theme"
 
     scheme1.addEventListener('click', scheme1Change)

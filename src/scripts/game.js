@@ -7,6 +7,8 @@ class Game{
     constructor(numNodes=3) {
         this.nodes = [];
         this.edges = [];
+        this.players = [new Player(1,"yellow"),
+                        new Player(2, "red")]
         this.start(numNodes);
         this.activate();
         

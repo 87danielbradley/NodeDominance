@@ -56,7 +56,7 @@ class Node{
         }
         this.object.onMouseDown = function(event) {
             path = new Path();
-            path.strokeColor = 'green';
+            path.strokeColor = 'red';
             path.strokeWidth = 10;
             path.strokeCap = 'round';
             path.strokeJoin = 'round';

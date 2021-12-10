@@ -1,5 +1,6 @@
 import Node from "./node.js"
-import Edge from "./edge.js"
+import Player from "./player"
+// import Edge from "./edge.js"
 import * as paper from 'paper'
 const Utility = require("./utility.js")
 
@@ -7,6 +8,8 @@ class Game{
     constructor(numNodes=3) {
         this.nodes = [];
         this.edges = [];
+        this.players = [new Player(1,"yellow"),
+                        new Player(2, "red")]
         this.start(numNodes);
         this.activate();
         
@@ -19,10 +22,11 @@ class Game{
         }
     }
     add(object) {  
+        debugger
         
         if (object instanceof Node) {
             this.nodes.push(object);
-        } else if (object instanceof Edge) {
+        } else if (object instanceof Paper) {
             if (!this.checkCollisions) {
                
                 this.edges.push(object);

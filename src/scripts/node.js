@@ -54,10 +54,12 @@ class Node{
 
 
                 // if (that.capacity()) event.stopPropagation();
-                
-                that.object.shadowColor = new Color(0.4, 0.4, 1);
-                that.object.shadowBlur = 50;
-                that.object.shadowOffset = new Point(5, 5);
+                if (that.active){
+                    that.object.shadowColor = new Color(0.4, 0.4, 1);
+                    that.object.shadowBlur = 50;
+                    that.object.shadowOffset = new Point(5, 5);
+                }
+                    
             }
             this.object.onMouseLeave = function(event) {
                 
@@ -66,7 +68,7 @@ class Node{
                 that.object.shadowOffset = new Point(0, 0);
             }
             this.object.onMouseDown = function(event) {
-                path = new Path();
+                if (that.active){path = new Path();
                 path.strokeColor = that.game.players[0].color;
                 path.strokeWidth = 10;
                 path.strokeCap = 'round';
@@ -76,7 +78,7 @@ class Node{
                 path.shadowOffset = new Point(5,5);
                 path.opacity = 0.6;
                 path.blendMode = 'multiply';
-                path.add(event.point);
+                // path.add(event.point);
                 // let edge = new Edge(that, path);
                 // that.addAChild(edge);
                 this.curPath = path.id
@@ -86,14 +88,14 @@ class Node{
                 // debugger
                 
                 // that.test()
-                
+                }
             }
             this.object.onMouseDrag = function(event) {
                 path.add(event.point);
             }
             this.object.onMouseUp = function(event) {
                 
-                that.children[that.children.length-1].add(event.point)
+                // that.children[that.children.length-1].add(event.point)
                 that.object.bringToFront();
                 that.game.legalMove(that)
                 if (!that.capacity()){
@@ -144,7 +146,7 @@ class Node{
         
         
         if (visibleChild.length >= this.maxChildren){
-            debugger
+            // debugger
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
             this.active = false;
         } else {

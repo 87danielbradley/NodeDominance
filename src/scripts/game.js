@@ -8,6 +8,7 @@ class Game{
     constructor(numNodes=3) {
         this.nodes = [];
         this.edges = [];
+        this.legalPaths = [];
         this.players = [new Player(1,"green"),
                         new Player(2, "blue")]
         this.start(numNodes);
@@ -100,10 +101,10 @@ class Game{
             }
         }
         
-        // const output = [...new Set(parArr)]
-        // if (output.length !== 2){
-        //     edge_instance.visible = false
-        // }
+        const output = [...new Set(parArr)]
+        if (output.length !== 2){
+            edge_instance.visible = false
+        }
         return [...new Set(parArr)] ;
         }
     checkCapacity(edge_instance){
@@ -130,12 +131,14 @@ class Game{
         
         if(!collideWithPath && collisions.length === 2 && capacity) {
             //then legal move
-            
+            that.legalPaths.push(edge_instance)
             this.nodes.forEach(node => {
                 if (collisions.includes(node.object)) {
                     node.addAChild(edge_instance);
                     node.object.bringToFront();
-                    if (node.capacity()){
+                    
+                    if (!node.capacity()){
+                        debugger
                         node.deactivate()
                     }
                 }
@@ -160,9 +163,15 @@ class Game{
                 }
             })
             
-            if (parentNode.curPath === edge_instance.id){
+            // if (parentNode.curPath === edge_instance.id){
                 edge_instance.visible = false;
-            }
+            // redraw all paths in case one is deleted
+                // that.legalPaths.forEach(path => that.checkCollisions(path));
+                that.legalPaths.forEach(path => {path.visible = true});
+                debugger
+                // that.legalPaths[that.legalPaths.length-1].visible = true;
+                debugger
+            
             return false; //meaning bad move
         }
         

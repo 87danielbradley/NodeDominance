@@ -9,7 +9,8 @@ class Node{
         this.maxChildren = maxChildren
         this.active = true
         this.children = []
-        this.paths = []
+        this.paths = [] 
+        this.curPath = ''
         this.game = game_instance
         this.colorize(); //change color to gradient
         this.activate();
@@ -75,13 +76,14 @@ class Node{
                 path.shadowOffset = new Point(5,5);
                 path.opacity = 0.6;
                 path.blendMode = 'multiply';
-                // path.add(event.point);
+                path.add(event.point);
                 // let edge = new Edge(that, path);
                 // that.addAChild(edge);
-                
-
+                this.curPath = path.id
+                /// ========
                 //workaround.  if you remove addAChild the propagation never stops
                 that.addAChild(path);
+                debugger
                 
                 // that.test()
                 

@@ -120,7 +120,7 @@ class Game{
         return capacity
     }
 
-    checkCollisions(edge_instance, node_active){ 
+    checkCollisions(edge_instance, parentNode){ 
         const objects = this.visibleObjects();  
         const curEdge = edge_instance
         let that = this;
@@ -160,7 +160,7 @@ class Game{
                 }
             })
             debugger
-            if (node_active){
+            if (parentNode.curPath === edge_instance.id){
                 edge_instance.visible = false;
             }
             return false; //meaning bad move
@@ -251,7 +251,7 @@ class Game{
     }
 
     legalMove(node_instance) { 
-        if (!this.checkCollisions(node_instance.children.slice(-1)[0], node_instance.active)) {
+        if (!this.checkCollisions(node_instance.children.slice(-1)[0], node_instance)) {
         }// We spliced here to removed child incase of illegal move
     }
 

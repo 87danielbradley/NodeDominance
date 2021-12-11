@@ -18,7 +18,7 @@ class Game{
     static HEIGHT = window.innerHeight*2/3;
     start(numNodes) {
         for (let i = 0; i < numNodes; i++) {
-            this.add(new Node(Utility.randomPosition((Game.WIDTH*0.75), (75 + Game.HEIGHT*0.75)), this)); //debugger
+            this.add(new Node(Utility.randomPosition((Game.WIDTH*0.75), (75 + Game.HEIGHT*0.75)), this, 3)); //debugger
         }
     }
     add(object) {  
@@ -32,8 +32,7 @@ class Game{
             
             // debugger
         } 
-        let turn = this.players.shift();
-        this.players = this.players.concat(turn)
+        
         // debugger
     }
     activeNodes() {
@@ -132,12 +131,18 @@ class Game{
                 if (collisions.includes(node.object)) {
                     node.addAChild(edge_instance);
                     node.object.bringToFront();
+                    if (node.capacity()){
+                        node.deactivate()
+                    }
                 }
             })
             // collisions.forEach(parent => )
             // objects[i].addAChild(edge_instance);
             // objects[i].object.bringToFront();
 
+            //switch player colors after legal move
+            let turn = this.players.shift();
+            this.players = this.players.concat(turn);
 
             that.buildNode(edge_instance)
             return true; //meaning good move
@@ -245,6 +250,12 @@ class Game{
 
     buildNode(edge_instance) {
         let that = this;
+
+        that.nodes.forEach(node => {
+                node.deactivate()
+            })
+
+
         let dottedCircle = new Path.Circle({
             center: view.center,
             radius: Game.WIDTH/20,
@@ -261,11 +272,15 @@ class Game{
         }
 
         edge_instance.onClick = function(event) {
+
+
+
+
             that.add(edge_instance);
            
-            that.add(new Node([event.point.x, event.point.y], that))
+            that.add(new Node([event.point.x, event.point.y], that, 2))
             that.nodes.slice(-1)[0].addAChild(edge_instance);
-            that.nodes.slice(-1)[0].addAChild(edge_instance);
+            // that.nodes.slice(-1)[0].addAChild(edge_instance);
             dottedCircle.visible = false;
             edge_instance.onMouseMove = function(event) {
             event.stopPropagation();
@@ -273,6 +288,12 @@ class Game{
             edge_instance.onClick = function(event) {
                 console.log(`You don't need to click here!`)
             }
+
+            that.nodes.forEach(node => {
+                if( node.capacity()) {
+                    node.activate()
+                }
+            })
         }
     }
 }

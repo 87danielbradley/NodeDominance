@@ -3,14 +3,16 @@ import Game from "./game.js";
 import * as paper from 'paper'
 
 class Node{
-    constructor(pos, game_instance) {
+    constructor(pos, game_instance, maxChildren = 2) {
         paper.project.activeLayer.activate()
         this.object = new Path.Circle(new Point(pos),Game.WIDTH/20);
+        this.maxChildren = maxChildren
         this.children = []
         this.paths = []
         this.game = game_instance
         this.colorize(); //change color to gradient
         this.activate();
+
         
        
 
@@ -70,7 +72,10 @@ class Node{
             // let edge = new Edge(that, path);
             // that.addAChild(edge);
             // debugger
+
+            //workaround.  if you remove addAChild the propagation never stops
             that.addAChild(path);
+            
             // that.test()
             // debugger
         }
@@ -78,7 +83,8 @@ class Node{
             path.add(event.point);
         }
         this.object.onMouseUp = function(event) {
-            path.add(event.point)
+            
+            // path.add(event.point)
             that.object.bringToFront();
             that.game.legalMove(that)
             if (!that.capacity()){
@@ -121,12 +127,14 @@ class Node{
     }
     capacity() {
         
-        let visibleChild = this.children.filter(child => child.visible)
+        // let visibleChild = this.children.filter(child => child.visible)
+        let visibleChild = [...new Set(this.children.filter(child => child.visible).map(child => child.id))]
         
         // debugger
-        if (visibleChild.length >= 3){
-            // debugger
+        if (visibleChild.length >= this.maxChildren){
+            debugger
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
+            
         } else {
             this.object.fillColor.gradient.stops = [['yellow',0.01],['green', 0.75],['black', 1]]
             
@@ -135,7 +143,7 @@ class Node{
         if (visibleChild.length > 3){
             // debugger
         }
-        return visibleChild.length <= 3;
+        return visibleChild.length < this.maxChildren;
     }
     remove(edge_instance) {
         this.children.filter(child => child !== edge_instance)

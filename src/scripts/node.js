@@ -83,7 +83,7 @@ class Node{
                 /// ========
                 //workaround.  if you remove addAChild the propagation never stops
                 that.addAChild(path);
-                debugger
+                // debugger
                 
                 // that.test()
                 
@@ -140,11 +140,11 @@ class Node{
     capacity() {
         
         // let visibleChild = this.children.filter(child => child.visible)
-        let visibleChild = [...new Set(this.children.filter(child => child.visible).map(child => child.id))]
+        let visibleChild = [...new Set(this.children.filter(child => child.visible && child.length>0).map(child => child.id))]
         
         
         if (visibleChild.length >= this.maxChildren){
-            
+            debugger
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
             this.active = false;
         } else {

@@ -159,7 +159,7 @@ class Game{
                     node.activate()
                 }
             })
-            debugger
+            
             if (parentNode.curPath === edge_instance.id){
                 edge_instance.visible = false;
             }

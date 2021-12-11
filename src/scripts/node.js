@@ -71,13 +71,13 @@ class Node{
             // path.add(event.point);
             // let edge = new Edge(that, path);
             // that.addAChild(edge);
-            // debugger
+            
 
             //workaround.  if you remove addAChild the propagation never stops
             that.addAChild(path);
             
             // that.test()
-            // debugger
+            
         }
         this.object.onMouseDrag = function(event) {
             path.add(event.point);
@@ -116,12 +116,12 @@ class Node{
         }
     }
     addAChild(path) {
-        // debugger
+        
         this.game.add(path);
         if (this.capacity()) {
             this.children.push(path)
         }else{
-            // debugger
+            
         }
         
     }
@@ -130,9 +130,9 @@ class Node{
         // let visibleChild = this.children.filter(child => child.visible)
         let visibleChild = [...new Set(this.children.filter(child => child.visible).map(child => child.id))]
         
-        // debugger
+        
         if (visibleChild.length >= this.maxChildren){
-            debugger
+            
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
             
         } else {
@@ -141,9 +141,9 @@ class Node{
             
         }
         if (visibleChild.length > 3){
-            // debugger
+            
         }
-        return visibleChild.length < this.maxChildren;
+        return visibleChild.length <= this.maxChildren;
     }
     remove(edge_instance) {
         this.children.filter(child => child !== edge_instance)

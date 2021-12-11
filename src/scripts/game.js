@@ -18,7 +18,7 @@ class Game{
     static HEIGHT = window.innerHeight*2/3;
     start(numNodes) {
         for (let i = 0; i < numNodes; i++) {
-            this.add(new Node(Utility.randomPosition((Game.WIDTH*0.75), (75 + Game.HEIGHT*0.75)), this, 3)); //debugger
+            this.add(new Node(Utility.randomPosition((Game.WIDTH*0.75), (75 + Game.HEIGHT*0.75)), this, 3)); 
         }
     }
     add(object) {  
@@ -30,10 +30,10 @@ class Game{
                
             this.edges.push(object);
             
-            // debugger
+            
         } 
         
-        // debugger
+        
     }
     activeNodes() {
         return this.nodes.filter(node => node.capacity());
@@ -110,7 +110,7 @@ class Game{
                 if (collisions.includes(node.object) && !node.capacity()) {
                     capacity = false
                 } else{
-                    // debugger
+                    
                 }
             })
         return capacity
@@ -123,7 +123,7 @@ class Game{
         let collideWithPath = this.collisionPath(edge_instance)
         let collisions = this.collisionCount(edge_instance)
         let capacity = this.checkCapacity(edge_instance)
-        debugger
+        
         if(!collideWithPath && collisions.length === 2 && capacity) {
             //then legal move
             
@@ -181,7 +181,7 @@ class Game{
             //     for (let i =0; i < objects.length; i++) {
             //         // let intersections = curEdge.getIntersections(objects[i]); // <===revert
             //         let intersections = curEdge.getIntersections(objects[i].object)
-            //         //debugger on intersections formula
+            //          on intersections formula
             //         // if (intersections[0]["point"]['x']) {
                     
                     
@@ -200,7 +200,7 @@ class Game{
             //                 let node_idx = objects[i].children.indexOf(edge_instance);
             //                 if (node_idx > -1) {
                                 
-            //                     objects[i].activate()//debugger
+            //                     objects[i].activate()
             //                     objects[i].splice(node_idx,1)
             //                 }
         
@@ -214,7 +214,7 @@ class Game{
             //     for (let i =0; i < objects.length; i++) {
             //         // let intersections = curEdge.getIntersections(objects[i]); // <===revert
             //         let intersections = edge_instance.getIntersections(objects[i].object)
-            //         //debugger on intersections formula
+            //          on intersections formula
             //         // if (intersections[0]["point"]['x']) {
                     
             //         if (intersections.length>0) {

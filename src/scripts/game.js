@@ -64,7 +64,7 @@ class Game{
         const curPath = edge_instance
         for (let i = 0; i < paperItems.length; i++) {
             if (curPath.getIntersections(paperItems[i]).length > 0) {
-                
+                edge_instance.visible = false
                 return true
             }
         }
@@ -100,7 +100,10 @@ class Game{
             }
         }
         
-        
+        // const output = [...new Set(parArr)]
+        // if (output.length !== 2){
+        //     edge_instance.visible = false
+        // }
         return [...new Set(parArr)] ;
         }
     checkCapacity(edge_instance){
@@ -109,6 +112,7 @@ class Game{
         this.nodes.forEach(node => {
                 if (collisions.includes(node.object) && !node.capacity()) {
                     capacity = false
+                    // edge_instance.visible = false
                 } else{
                     
                 }
@@ -116,7 +120,7 @@ class Game{
         return capacity
     }
 
-    checkCollisions(edge_instance){ 
+    checkCollisions(edge_instance, node_active){ 
         const objects = this.visibleObjects();  
         const curEdge = edge_instance
         let that = this;
@@ -155,7 +159,10 @@ class Game{
                     node.activate()
                 }
             })
-            edge_instance.visible = false;
+            debugger
+            if (node_active){
+                edge_instance.visible = false;
+            }
             return false; //meaning bad move
         }
         
@@ -244,7 +251,7 @@ class Game{
     }
 
     legalMove(node_instance) { 
-        if (!this.checkCollisions(node_instance.children.slice(-1)[0])) {
+        if (!this.checkCollisions(node_instance.children.slice(-1)[0], node_instance.active)) {
         }// We spliced here to removed child incase of illegal move
     }
 

@@ -45,7 +45,8 @@ class Node{
         tool.minDistance = 15;
         tool.maxDistance = 40;
         let path;
-
+        this.deactivate()
+        
         if (that.active){
             this.object.onMouseEnter = function(event) {
             
@@ -97,6 +98,8 @@ class Node{
                     that.deactivate()
                 }
             }
+        } else {
+            that.deactivate()
         }
     }
 

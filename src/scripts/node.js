@@ -1,4 +1,4 @@
-import Edge from "./edge";
+// import Edge from "./edge";
 import Game from "./game.js";
 import * as paper from 'paper'
 
@@ -67,8 +67,9 @@ class Node{
             path.opacity = 0.6;
             path.blendMode = 'multiply';
             path.add(event.point);
-            let edge = new Edge(that, path);
-            that.addAChild(edge);
+            // let edge = new Edge(that, path);
+            // that.addAChild(edge);
+            that.addAChild(path);
         }
         this.object.onMouseDrag = function(event) {
             path.add(event.point);
@@ -113,8 +114,9 @@ class Node{
     }
     capacity() {
         
-        let visibleChild = this.children.filter(child => child.startPos.visible)
+        let visibleChild = this.children.filter(child => child.visible)
         console.log(visibleChild)
+        // debugger
         if (visibleChild.length > 3){
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
         } else {

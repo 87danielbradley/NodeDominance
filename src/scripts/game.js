@@ -9,7 +9,7 @@ class Game{
         this.nodes = [];
         this.edges = [];
         this.players = [new Player(1,"green"),
-                        new Player(2, "red")]
+                        new Player(2, "blue")]
         this.start(numNodes);
         this.activate();
         
@@ -22,17 +22,19 @@ class Game{
         }
     }
     add(object) {  
+        //simply adds object to correct path and doesn't perform logic
         
         if (object instanceof Node) {
             this.nodes.push(object);
-        } else if (object instanceof Edge) {
-            if (!this.checkCollisions) {
+        } else if (object instanceof Path) {
                
-                this.edges.push(object);
-            }
-        } else {
+            this.edges.push(object);
+            
             debugger
-        }
+        } 
+        let turn = this.players.shift();
+        this.players = this.players.concat(turn)
+        debugger
     }
     activeNodes() {
         return this.nodes.filter(node => node.capacity());
@@ -60,7 +62,7 @@ class Game{
     //true edge instance
     collisionPath(edge_instance) {
         const paperItems = paper.project.activeLayer.children.filter( child => child.visible && !child.closed);
-        const curPath = edge_instance.startPos
+        const curPath = edge_instance
         for (let i = 0; i < paperItems.length; i++) {
             if (curPath.getIntersections(paperItems[i]).length > 0) {
                 
@@ -75,7 +77,7 @@ class Game{
 
     collisionCount(edge_instance) { 
         const paperItem = paper.project.activeLayer.children;  
-        const curEdge = edge_instance.startPos
+        const curEdge = edge_instance
         let that = this;
         let count = 0
         
@@ -105,7 +107,7 @@ class Game{
 
     checkCollisions(edge_instance){ 
         const objects = this.visibleObjects();  
-        const curEdge = edge_instance.startPos
+        const curEdge = edge_instance
         let that = this;
         let collideWithPath = this.collisionPath(edge_instance)
         let collisions = this.collisionCount(edge_instance)
@@ -134,7 +136,7 @@ class Game{
                     node.activate()
                 }
             })
-            edge_instance.startPos.visible = false;
+            edge_instance.visible = false;
             return false; //meaning bad move
         }
         
@@ -146,7 +148,7 @@ class Game{
             
             // checkCollisions(edge_instance) { 
             //     const objects = this.visibleObjects();  
-            //     const curEdge = edge_instance.startPos
+            //     const curEdge = edge_instance
             //     let that = this;
                 
             //     
@@ -192,7 +194,7 @@ class Game{
             //     }
             //     for (let i =0; i < objects.length; i++) {
             //         // let intersections = curEdge.getIntersections(objects[i]); // <===revert
-            //         let intersections = edge_instance.startPos.getIntersections(objects[i].object)
+            //         let intersections = edge_instance.getIntersections(objects[i].object)
             //         //debugger on intersections formula
             //         // if (intersections[0]["point"]['x']) {
                     
@@ -238,23 +240,23 @@ class Game{
         dottedCircle.dashArray = [15, 5];
         dottedCircle.visible = false;
     
-        edge_instance.startPos.onMouseMove = function(event) {
-            let pointOnPath = edge_instance.startPos.getNearestPoint(event.point);
+        edge_instance.onMouseMove = function(event) {
+            let pointOnPath = edge_instance.getNearestPoint(event.point);
             dottedCircle.position = pointOnPath;
             dottedCircle.visible = true;
         }
 
-        edge_instance.startPos.onClick = function(event) {
+        edge_instance.onClick = function(event) {
             that.add(edge_instance);
            
             that.add(new Node([event.point.x, event.point.y], that))
             that.nodes.slice(-1)[0].addAChild(edge_instance);
             that.nodes.slice(-1)[0].addAChild(edge_instance);
             dottedCircle.visible = false;
-            edge_instance.startPos.onMouseMove = function(event) {
+            edge_instance.onMouseMove = function(event) {
             event.stopPropagation();
             }
-            edge_instance.startPos.onClick = function(event) {
+            edge_instance.onClick = function(event) {
                 console.log(`You don't need to click here!`)
             }
         }

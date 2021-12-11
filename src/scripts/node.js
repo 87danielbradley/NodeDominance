@@ -7,6 +7,7 @@ class Node{
         paper.project.activeLayer.activate()
         this.object = new Path.Circle(new Point(pos),Game.WIDTH/20);
         this.maxChildren = maxChildren
+        this.active = true
         this.children = []
         this.paths = []
         this.game = game_instance
@@ -44,51 +45,57 @@ class Node{
         tool.minDistance = 15;
         tool.maxDistance = 40;
         let path;
-        this.object.onMouseEnter = function(event) {
-            if (that.capacity()) event.stopPropagation();
-            
-            that.object.shadowColor = new Color(0.4, 0.4, 1);
-            that.object.shadowBlur = 50;
-            that.object.shadowOffset = new Point(5, 5);
-        }
-        this.object.onMouseLeave = function(event) {
-            
-            that.object.shadowColor = new Color(0, 0, 0);
-            that.object.shadowBlur = 0;
-            that.object.shadowOffset = new Point(0, 0);
-        }
-        this.object.onMouseDown = function(event) {
-            path = new Path();
-            path.strokeColor = that.game.players[0].color;
-            path.strokeWidth = 10;
-            path.strokeCap = 'round';
-            path.strokeJoin = 'round';
-            path.shadowColor = new Color(0,0.75,1);
-            path.shadowBlur = 30;
-            path.shadowOffset = new Point(5,5);
-            path.opacity = 0.6;
-            path.blendMode = 'multiply';
-            // path.add(event.point);
-            // let edge = new Edge(that, path);
-            // that.addAChild(edge);
+
+        if (that.active){
+            this.object.onMouseEnter = function(event) {
             
 
-            //workaround.  if you remove addAChild the propagation never stops
-            that.addAChild(path);
-            
-            // that.test()
-            
-        }
-        this.object.onMouseDrag = function(event) {
-            path.add(event.point);
-        }
-        this.object.onMouseUp = function(event) {
-            
-            that.children[that.children.length-1].add(event.point)
-            that.object.bringToFront();
-            that.game.legalMove(that)
-            if (!that.capacity()){
-                that.deactivate()
+
+                // if (that.capacity()) event.stopPropagation();
+                
+                that.object.shadowColor = new Color(0.4, 0.4, 1);
+                that.object.shadowBlur = 50;
+                that.object.shadowOffset = new Point(5, 5);
+            }
+            this.object.onMouseLeave = function(event) {
+                
+                that.object.shadowColor = new Color(0, 0, 0);
+                that.object.shadowBlur = 0;
+                that.object.shadowOffset = new Point(0, 0);
+            }
+            this.object.onMouseDown = function(event) {
+                path = new Path();
+                path.strokeColor = that.game.players[0].color;
+                path.strokeWidth = 10;
+                path.strokeCap = 'round';
+                path.strokeJoin = 'round';
+                path.shadowColor = new Color(0,0.75,1);
+                path.shadowBlur = 30;
+                path.shadowOffset = new Point(5,5);
+                path.opacity = 0.6;
+                path.blendMode = 'multiply';
+                // path.add(event.point);
+                // let edge = new Edge(that, path);
+                // that.addAChild(edge);
+                
+
+                //workaround.  if you remove addAChild the propagation never stops
+                that.addAChild(path);
+                
+                // that.test()
+                
+            }
+            this.object.onMouseDrag = function(event) {
+                path.add(event.point);
+            }
+            this.object.onMouseUp = function(event) {
+                
+                that.children[that.children.length-1].add(event.point)
+                that.object.bringToFront();
+                that.game.legalMove(that)
+                if (!that.capacity()){
+                    that.deactivate()
+                }
             }
         }
     }
@@ -134,9 +141,10 @@ class Node{
         if (visibleChild.length >= this.maxChildren){
             
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
-            
+            this.active = false;
         } else {
             this.object.fillColor.gradient.stops = [['yellow',0.01],['green', 0.75],['black', 1]]
+            this.active = true;
             
             
         }

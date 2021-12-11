@@ -7,6 +7,7 @@ class Node{
         paper.project.activeLayer.activate()
         this.object = new Path.Circle(new Point(pos),Game.WIDTH/20);
         this.children = []
+        this.paths = []
         this.game = game_instance
         this.colorize(); //change color to gradient
         this.activate();
@@ -56,7 +57,7 @@ class Node{
         }
         this.object.onMouseDown = function(event) {
             path = new Path();
-            path.strokeColor = 'red';
+            path.strokeColor = that.game.players[0].color;
             path.strokeWidth = 10;
             path.strokeCap = 'round';
             path.strokeJoin = 'round';

@@ -1,13 +1,14 @@
 import Node from "./node.js"
 import Edge from "./edge.js"
 import * as paper from 'paper'
+import Player from "./player"
 const Utility = require("./utility.js")
 
 class Game{
     constructor(numNodes=3) {
         this.nodes = [];
         this.edges = [];
-        this.players = [new Player(1,"yellow"),
+        this.players = [new Player(1,"green"),
                         new Player(2, "red")]
         this.start(numNodes);
         this.activate();

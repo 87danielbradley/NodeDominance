@@ -84,7 +84,7 @@ class Node{
         }
         this.object.onMouseUp = function(event) {
             
-            // path.add(event.point)
+            that.children[that.children.length-1].add(event.point)
             that.object.bringToFront();
             that.game.legalMove(that)
             if (!that.capacity()){

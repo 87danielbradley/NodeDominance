@@ -66,15 +66,19 @@ class Node{
             path.shadowOffset = new Point(5,5);
             path.opacity = 0.6;
             path.blendMode = 'multiply';
-            path.add(event.point);
+            // path.add(event.point);
             // let edge = new Edge(that, path);
             // that.addAChild(edge);
+            // debugger
             that.addAChild(path);
+            // that.test()
+            // debugger
         }
         this.object.onMouseDrag = function(event) {
             path.add(event.point);
         }
         this.object.onMouseUp = function(event) {
+            path.add(event.point)
             that.object.bringToFront();
             that.game.legalMove(that)
             if (!that.capacity()){
@@ -105,30 +109,39 @@ class Node{
             event.stopPropagation();
         }
     }
-    addAChild(object) {
-        this.game.add(object);
-        if (this.capacity) {
-            this.children.push(object)
+    addAChild(path) {
+        // debugger
+        this.game.add(path);
+        if (this.capacity()) {
+            this.children.push(path)
+        }else{
+            // debugger
         }
         
     }
     capacity() {
         
         let visibleChild = this.children.filter(child => child.visible)
-        console.log(visibleChild)
+        
         // debugger
-        if (visibleChild.length > 3){
+        if (visibleChild.length >= 3){
+            // debugger
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
         } else {
             this.object.fillColor.gradient.stops = [['yellow',0.01],['green', 0.75],['black', 1]]
             
             
         }
-        
-        return visibleChild.length < 3;
+        if (visibleChild.length > 3){
+            // debugger
+        }
+        return visibleChild.length <= 3;
     }
     remove(edge_instance) {
         this.children.filter(child => child !== edge_instance)
+    }
+    test(){
+        console.log('test')
     }
 }
 export default Node;

@@ -30,11 +30,11 @@ class Game{
                
             this.edges.push(object);
             
-            debugger
+            // debugger
         } 
         let turn = this.players.shift();
         this.players = this.players.concat(turn)
-        debugger
+        // debugger
     }
     activeNodes() {
         return this.nodes.filter(node => node.capacity());
@@ -104,6 +104,18 @@ class Game{
         
         return [...new Set(parArr)] ;
         }
+    checkCapacity(edge_instance){
+        let collisions = this.collisionCount(edge_instance)
+        let capacity = true
+        this.nodes.forEach(node => {
+                if (collisions.includes(node.object) && !node.capacity()) {
+                    capacity = false
+                } else{
+                    // debugger
+                }
+            })
+        return capacity
+    }
 
     checkCollisions(edge_instance){ 
         const objects = this.visibleObjects();  
@@ -111,7 +123,9 @@ class Game{
         let that = this;
         let collideWithPath = this.collisionPath(edge_instance)
         let collisions = this.collisionCount(edge_instance)
-        if(!collideWithPath && collisions.length === 2) {
+        let capacity = this.checkCapacity(edge_instance)
+        debugger
+        if(!collideWithPath && collisions.length === 2 && capacity) {
             //then legal move
             
             this.nodes.forEach(node => {

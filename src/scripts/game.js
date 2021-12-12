@@ -82,7 +82,9 @@ class Game{
         let count = 0
         
         let parArr = [];
+        debugger
         for (let i = 0; i< paperItem.length; i++) {
+            debugger
             if (paperItem[i].visible && paperItem[i] !== curEdge) {
                 paper.project.activeLayer.children[1].getIntersections(curEdge.segments[0].path)
                 if (paperItem[i].getIntersections(curEdge.segments[0].path).length> 0) {
@@ -100,12 +102,26 @@ class Game{
                 
             }
         }
-        
         const output = [...new Set(parArr)]
-        if (output.length !== 2){
-            edge_instance.visible = false
+
+        if (parArr.length === 2 && parArr[0].id === parArr[1].id){
+            const parentNode = that.nodes.filter(node => node.object.id === parArr[0].id)[0]
+            if ([...new Set(parentNode.children.filter(child => child.visible && child.length>0).map(child => child.id))].length < parentNode.maxChildren-1){
+                
+                return parArr;
+            }
+            debugger
+            // that.nodes.filter(node => node.object.id === parArr[0].id)[0].maxChildren -= 1
+            debugger
+        } else {
+            debugger
+            if (output.length !== 2){
+                edge_instance.visible = false
+            }
         }
-        return [...new Set(parArr)] ;
+        
+        return output ;
+
         }
     checkCapacity(edge_instance){
         let that = this;
@@ -151,6 +167,9 @@ class Game{
                 if (collisions.includes(node.object)) {
                     node.addAChild(edge_instance);
                     node.object.bringToFront();
+                    if (collisions[0].id === collisions[1].id){
+                        node.maxChildren -= 1
+                    }
                     
                     if (!node.capacity()){
                         // debugger
@@ -184,7 +203,7 @@ class Game{
             
             // if (parentNode.curPath === edge_instance.id){
                 edge_instance.visible = false;
-                debugger
+                // debugger
             // redraw all paths in case one is deleted
                 // that.legalPaths.forEach(path => that.checkCollisions(path));
                 that.legalPaths.forEach(path => {path.visible = true});
@@ -327,7 +346,7 @@ class Game{
 
             that.nodes.forEach(node => {
                 if( node.capacity()) {
-                    debugger
+                    // debugger
                     node.activate()
                 }
             })

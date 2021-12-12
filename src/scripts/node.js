@@ -148,10 +148,10 @@ class Node{
         if (visibleChild.length >= this.maxChildren){
             // debugger
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
-            this.active = false;
+            // this.active = false;
         } else {
             this.object.fillColor.gradient.stops = [['yellow',0.01],['green', 0.75],['black', 1]]
-            this.active = true;
+            // this.active = true;
             
             
         }

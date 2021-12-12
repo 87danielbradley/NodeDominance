@@ -116,16 +116,18 @@ class Game{
                 if (collisions.includes(node.object) && !node.active) {
                     // debugger
                     // const nodeObject = that.nodes.filter(nodeInstance => nodeInstance.object.id === node.object.id)[0]
-                    // debugger
+                    debugger
                     // if ([...new Set(nodeObject.filter(child => child.visible && child.length>0))].length < nodeObject.maxChildren) {
                     
                         capacity = false
                     // }
                     // edge_instance.visible = false
                 } else{
+                    debugger
                     
                 }
             })
+            debugger
         return capacity
     }
 
@@ -136,7 +138,7 @@ class Game{
         let collideWithPath = this.collisionPath(edge_instance)
         let collisions = this.collisionCount(edge_instance)
         let capacity = this.checkCapacity(edge_instance)
-        
+        debugger
         if(!collideWithPath && collisions.length === 2 && capacity) {
             //then legal move
             that.legalPaths.push(edge_instance)
@@ -147,6 +149,7 @@ class Game{
                     
                     if (!node.capacity()){
                         // debugger
+                        node.active = false;
                         node.deactivate()
                     }
                 }
@@ -162,7 +165,7 @@ class Game{
             that.buildNode(edge_instance)
             return true; //meaning good move
         } else {
-            
+            debugger
             this.nodes.forEach(node => {
                 if (collisions.includes(node.object)) {
                     node.remove(edge_instance);

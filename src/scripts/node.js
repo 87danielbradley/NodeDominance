@@ -148,6 +148,7 @@ class Node{
         if (visibleChild.length >= this.maxChildren){
             // debugger
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
+            
             // this.active = false;
         } else {
             this.object.fillColor.gradient.stops = [['yellow',0.01],['green', 0.75],['black', 1]]
@@ -158,7 +159,7 @@ class Node{
         if (visibleChild.length > 3){
             
         }
-        return visibleChild.length <= this.maxChildren;
+        return visibleChild.length < this.maxChildren;
     }
     remove(edge_instance) {
         this.children.filter(child => child !== edge_instance)

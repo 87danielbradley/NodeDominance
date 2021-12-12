@@ -113,21 +113,26 @@ class Game{
         let collisions = this.collisionCount(edge_instance)
         let capacity = true
         this.nodes.forEach(node => {
-                if (collisions.includes(node.object) && !node.active) {
-                    // debugger
-                    // const nodeObject = that.nodes.filter(nodeInstance => nodeInstance.object.id === node.object.id)[0]
-                    debugger
-                    // if ([...new Set(nodeObject.filter(child => child.visible && child.length>0))].length < nodeObject.maxChildren) {
-                    
+                if (collisions.includes(node.object)) {
+                    if (!node.active || [...new Set(node.children.filter(child => child.visible && child.length>0).map(child => child.id))].length > node.maxChildren){
                         capacity = false
-                    // }
-                    // edge_instance.visible = false
+                        // debugger
+                    } else {
+                        // debugger
+                    }
+                    // // const nodeObject = that.nodes.filter(nodeInstance => nodeInstance.object.id === node.object.id)[0]
+                    // debugger
+                    // // if ([...new Set(nodeObject.filter(child => child.visible && child.length>0))].length < nodeObject.maxChildren) {
+                    
+                    //     capacity = false
+                    // // }
+                    // // edge_instance.visible = false
                 } else{
-                    debugger
+                    // debugger
                     
                 }
             })
-            debugger
+            // debugger
         return capacity
     }
 
@@ -138,7 +143,7 @@ class Game{
         let collideWithPath = this.collisionPath(edge_instance)
         let collisions = this.collisionCount(edge_instance)
         let capacity = this.checkCapacity(edge_instance)
-        debugger
+        // debugger
         if(!collideWithPath && collisions.length === 2 && capacity) {
             //then legal move
             that.legalPaths.push(edge_instance)
@@ -165,17 +170,21 @@ class Game{
             that.buildNode(edge_instance)
             return true; //meaning good move
         } else {
-            debugger
+            // debugger
             this.nodes.forEach(node => {
                 if (collisions.includes(node.object)) {
                     node.remove(edge_instance);
                     node.object.bringToFront();
-                    node.activate()
+                    if (node.capacity()){
+
+                        node.activate()
+                    }
                 }
             })
             
             // if (parentNode.curPath === edge_instance.id){
                 edge_instance.visible = false;
+                debugger
             // redraw all paths in case one is deleted
                 // that.legalPaths.forEach(path => that.checkCollisions(path));
                 that.legalPaths.forEach(path => {path.visible = true});
@@ -313,11 +322,12 @@ class Game{
             event.stopPropagation();
             }
             edge_instance.onClick = function(event) {
-                console.log(`You don't need to click here!`)
+                console.log(`${edge_instance.id}`)
             }
 
             that.nodes.forEach(node => {
                 if( node.capacity()) {
+                    debugger
                     node.activate()
                 }
             })

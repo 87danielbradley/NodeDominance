@@ -92,13 +92,23 @@ class Game{
             
             if (paperItem[i].visible && paperItem[i] !== curEdge) {
                 paper.project.activeLayer.children[1].getIntersections(curEdge.segments[0].path)
-                if (paperItem[i].getIntersections(curEdge.segments[0].path).length> 0) {
+                if (paperItem[i].getIntersections(curEdge.segments[0].path).length=== 1) {
                     count++;
                     parArr.push(paperItem[i]);
+                    debugger
                 }
-                if (paperItem[i].getIntersections(curEdge.segments[curEdge.segments.length-1].path).length> 0) {
+                if (paperItem[i].getIntersections(curEdge.segments[0].path).length=== 2) {
+                    count++;
                     count++;
                     parArr.push(paperItem[i]);
+                    parArr.push(paperItem[i]);
+                    debugger
+                }
+
+                if (paperItem[i].getIntersections(curEdge.segments[curEdge.segments.length-1].path).length === 1) {
+                    count++;
+                    parArr.push(paperItem[i]);
+                    debugger
                 }
                 // count += paperItem[i].getIntersections(curEdge.segments[0].path).length;
                 // count += paperItem[i].getIntersections(curEdge.segments[curEdge.segments.length-1].path).length;
@@ -111,8 +121,8 @@ class Game{
 
         if (parArr.length === 2 && parArr[0].id === parArr[1].id){
             const parentNode = that.nodes.filter(node => node.object.id === parArr[0].id)[0]
-            if ([...new Set(parentNode.children.filter(child => child.visible && child.length>0).map(child => child.id))].length < parentNode.maxChildren-1){
-                
+            if ([...new Set(parentNode.children.filter(child => child.visible && child.length>0).map(child => child.id))].length <= parentNode.maxChildren-1){
+                debugger
                 return parArr;
             }
             

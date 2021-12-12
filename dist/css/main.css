@@ -264,6 +264,7 @@ INPUT:focus{
     min-width: 100%;
     margin-left: 2vw;
     margin: 2vw;
+    margin-bottom: 0px;
   }
 
 
@@ -273,6 +274,7 @@ INPUT:focus{
   min-width: 100%;
   height: 66%;
   margin: 2vw;
+  margin-bottom: 0px;
 }
 
 #paperCanvas{
@@ -280,6 +282,11 @@ INPUT:focus{
   max-width: 90%;
   height: 66vh;
   margin: 2vw;
+  margin-bottom: 0px;
+}
+#color-scheme{
+  position: fixed;
+  height: 100px;
 }
 }
 
@@ -288,3 +295,6 @@ INPUT:focus{
   height: 66vh;
 }
 
+body{
+  overflow: hidden;
+}

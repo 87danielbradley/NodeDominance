@@ -159,6 +159,7 @@ class Node{
         if (visibleChild.length > 3){
             
         }
+        //needs to be < and not <= or you can draw lines off red nodes
         return visibleChild.length < this.maxChildren;
     }
     remove(edge_instance) {

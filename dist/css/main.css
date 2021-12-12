@@ -126,7 +126,7 @@ INPUT {
 }
 
 #canvas {
-  width: 75%;
+  width: 100%;
   height: 66%;
 }
 
@@ -261,16 +261,30 @@ INPUT:focus{
     flex-direction: column;
   }
   #canvas-span{
-    width: 100%;
+    min-width: 100%;
     margin-left: 2vw;
+    margin: 2vw;
   }
 
 
   #canvas {
     margin-left: 1vw;
   margin: 1vw;
-  width: 100%;
+  min-width: 100%;
   height: 66%;
+  margin: 2vw;
 }
+
+#paperCanvas{
+  min-width: 90%;
+  max-width: 90%;
+  height: 66vh;
+  margin: 2vw;
+}
+}
+
+#paperCanvas{
+  width: 80vw;
+  height: 66vh;
 }
 

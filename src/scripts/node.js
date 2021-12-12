@@ -5,7 +5,7 @@ import * as paper from 'paper'
 class Node{
     constructor(pos, game_instance, maxChildren = 2) {
         paper.project.activeLayer.activate()
-        this.object = new Path.Circle(new Point(pos),Game.WIDTH/20);
+        this.object = new Path.Circle(new Point(pos),Game.MINIMUM/20);
         this.maxChildren = maxChildren
         this.active = true
         this.children = []
@@ -85,7 +85,7 @@ class Node{
                 /// ========
                 //workaround.  if you remove addAChild the propagation never stops
                 that.addAChild(path);
-                // debugger
+                // 
                 
                 // that.test()
                 }
@@ -146,7 +146,7 @@ class Node{
         
         
         if (visibleChild.length >= this.maxChildren){
-            // debugger
+            // 
             this.object.fillColor.gradient.stops = [['red',0.01],['oraange', 0.75],['yellow', 1]]
             
             // this.active = false;

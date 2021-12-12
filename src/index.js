@@ -95,15 +95,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     social1.addEventListener('click', social1Link)
     function social1Link() {
-        location.href = "https://github.com/87danielbradley/NodeDominance"
+        window.open("https://github.com/87danielbradley/NodeDominance", "_blank")
+        
     }
     social2.addEventListener('click', social2Link)
     function social2Link() {
-        location.href = "https://www.linkedin.com/in/87danielbradley/"
+        window.open("https://www.linkedin.com/in/87danielbradley/", "_blank")
     }
     social3.addEventListener('click', social3Link)
     function social3Link() {
-        location.href = "https://87danielbradley.github.io/portfolio/"
+        window.open("https://87danielbradley.github.io/portfolio/", "_blank")
+        
     }
 
     personalLinks.append(social1)

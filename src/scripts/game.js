@@ -108,11 +108,18 @@ class Game{
         return [...new Set(parArr)] ;
         }
     checkCapacity(edge_instance){
+        let that = this;
+        // debugger
         let collisions = this.collisionCount(edge_instance)
         let capacity = true
         this.nodes.forEach(node => {
                 if (collisions.includes(node.object) && !node.capacity()) {
-                    capacity = false
+                    debugger
+                    const nodeObject = that.nodes.filter(nodeInstance => nodeInstance.object.id === node.object.id)[0]
+                    debugger
+                    if ([...new Set(nodeObject.filter(child => child.visible && child.length>0))].length < nodeObject.maxChildren) {
+                    
+                        capacity = false}
                     // edge_instance.visible = false
                 } else{
                     
@@ -138,7 +145,7 @@ class Game{
                     node.object.bringToFront();
                     
                     if (!node.capacity()){
-                        debugger
+                        // debugger
                         node.deactivate()
                     }
                 }
@@ -168,9 +175,9 @@ class Game{
             // redraw all paths in case one is deleted
                 // that.legalPaths.forEach(path => that.checkCollisions(path));
                 that.legalPaths.forEach(path => {path.visible = true});
-                debugger
+                // debugger
                 // that.legalPaths[that.legalPaths.length-1].visible = true;
-                debugger
+                // debugger
             
             return false; //meaning bad move
         }

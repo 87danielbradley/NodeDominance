@@ -113,13 +113,14 @@ class Game{
         let collisions = this.collisionCount(edge_instance)
         let capacity = true
         this.nodes.forEach(node => {
-                if (collisions.includes(node.object) && !node.capacity()) {
-                    debugger
-                    const nodeObject = that.nodes.filter(nodeInstance => nodeInstance.object.id === node.object.id)[0]
-                    debugger
-                    if ([...new Set(nodeObject.filter(child => child.visible && child.length>0))].length < nodeObject.maxChildren) {
+                if (collisions.includes(node.object) && !node.active) {
+                    // debugger
+                    // const nodeObject = that.nodes.filter(nodeInstance => nodeInstance.object.id === node.object.id)[0]
+                    // debugger
+                    // if ([...new Set(nodeObject.filter(child => child.visible && child.length>0))].length < nodeObject.maxChildren) {
                     
-                        capacity = false}
+                        capacity = false
+                    // }
                     // edge_instance.visible = false
                 } else{
                     

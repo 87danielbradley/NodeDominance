@@ -20,7 +20,7 @@ class Game{
     // static WIDTH = window.innerWidth;
     // static HEIGHT = window.innerHeight;
     static MINIMUM = Math.min(Game.WIDTH, Game.HEIGHT)
-    debugger
+    
     start(numNodes) {
        
         for (let i = 0; i < numNodes; i++) {

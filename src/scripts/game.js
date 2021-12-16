@@ -157,16 +157,21 @@ class Game{
         return capacity
     }
 
-    checkCollisions(edge_instance, parentNode){ 
-        const objects = this.visibleObjects();  
-        const curEdge = edge_instance
+    checkCollisions(edge_instance){ 
         let that = this;
+        
+        //checks if line intersects with itself or another line
         let collideWithPath = this.collisionPath(edge_instance)
+
+        //finds the number of collisions and ensures two nodes or two connections with initial node
         let collisions = this.collisionCount(edge_instance)
+
+        //ensures each node in collision had space for a new connection
         let capacity = this.checkCapacity(edge_instance)
-        // 
+
+        // legal move when true
         if(!collideWithPath && collisions.length === 2 && capacity) {
-            //then legal move
+            
             that.legalPaths.push(edge_instance)
             this.nodes.forEach(node => {
                 if (collisions.includes(node.object)) {

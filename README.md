@@ -1,5 +1,5 @@
 # Node Dominance
-[live site](https://87danielbradley.github.io/NodeDominance/index)
+<a href="https://87danielbradley.github.io/NodeDominance/index"> ➤Node Dominance Live!</a></li>
 
 ## Background
 

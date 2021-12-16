@@ -1,3 +1,6 @@
+# Node Dominance
+[live site](https://ecopool.herokuapp.com/)
+
 ## Background
 
 Node Dominance is an interactive game project.  It is based off the game Sprouts created by John Horton Conway and Micheal S. Paterson in the 1960s. The original game is played with paper and pencil. When you open the app you will have a new game generated with a default of two nodes.

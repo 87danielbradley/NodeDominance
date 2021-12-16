@@ -1,5 +1,5 @@
 # Node Dominance
-[live site](https://ecopool.herokuapp.com/)
+[live site](https://87danielbradley.github.io/NodeDominance/index)
 
 ## Background
 

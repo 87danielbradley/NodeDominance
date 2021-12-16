@@ -60,7 +60,7 @@ This project will be implemented with the following technologies:
 - Thursday Morning: Deploy game and rewrite proposal as production.
 
 ## Code Snippet
-<img src="./wireframe.png" />
+<img src="./static/images/screenshot.png" />
 - This is the primary logic used to determine legal moves.  
 
 ## Bonus feature
